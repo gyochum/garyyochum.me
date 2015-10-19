@@ -1,0 +1,33 @@
+{
+  "name": "garyyochum",
+  "description": "frontend tools for client-side site development",
+  "main": "index.html",
+  "authors": [
+    "gary yochum"
+  ],
+  "license": "ISC",
+  "moduleType": [
+    "es6"
+  ],
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "*",
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-touch": "~1.4.7",
+    "angular-scenario": "~1.4.7"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.7",
+    "angular-scenario": "~1.4.7",
+    "jasmine-core": "jasmine#~2.3.4"
+  }
+}

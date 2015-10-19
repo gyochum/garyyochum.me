@@ -1,0 +1,7 @@
+node_modules
+src/libs
+src/definitions
+
+# all generated js
+src/assets/**/*.js
+src/assets/**/*.js.map

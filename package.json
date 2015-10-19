@@ -1,0 +1,27 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "node api endpoints for angular frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "*",
+    "express-handlebars": "*"
+  },
+  "devDependencies": {
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^3.3.1",
+    "gulp-typescript": "^2.9.2",
+    "gulp-util": "^3.0.6",
+    "sass": "*",
+    "typescript": "1.6.2"
+  },
+  "author": "gary yochum",
+  "license": "ISC"
+}
