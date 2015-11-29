@@ -1,27 +1,26 @@
 {
-  "name": "express",
+  "name": "garyyochum",
   "version": "1.0.0",
-  "description": "node api endpoints for angular frontend",
-  "main": "index.js",
+  "description": "garys MEAN stack app",
+  "main": "startup.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc": "tsc -p src -w",
+	"start": "live-server --open=src"
   },
+  "keywords": [
+    "angular2",
+    "express",
+    "responsive",
+    "mongodb"
+  ],
+  "author": "gary yochum",
+  "license": "ISC",
   "dependencies": {
-    "express": "*",
-    "express-handlebars": "*"
+    "angular2": "^2.0.0-alpha.46",
+    "systemjs": "^0.19.6"
   },
   "devDependencies": {
-    "del": "^2.0.2",
-    "gulp": "^3.9.0",
-    "gulp-inject": "^3.0.0",
-    "gulp-sass": "^2.0.4",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-tslint": "^3.3.1",
-    "gulp-typescript": "^2.9.2",
-    "gulp-util": "^3.0.6",
-    "sass": "*",
-    "typescript": "1.6.2"
-  },
-  "author": "gary yochum",
-  "license": "ISC"
+    "live-server": "^0.8.2",
+    "typescript": "^1.6.2"
+  }
 }

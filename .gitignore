@@ -1,7 +1,7 @@
 node_modules
-src/libs
 src/definitions
+*.log
 
 # all generated js
-src/assets/**/*.js
-src/assets/**/*.js.map
+src/**/*.js
+src/**/*.js.map

@@ -24,17 +24,17 @@ var gulpConfig = {
 var project = tsc.createProject({
 		target: 'ES5',
 		declaration: false,
-		sourcemaps: true
+		sourcemaps: true,
+		module: 'amd'
 });		
 
 //tasks
 gulp.task('compile-ts', function(){
-	var source = [gulpConfig.allTypeScript, gulpConfig.libraryTypeScriptDefinitions]; //path to angular app ts files, ts definition files
+	var source = [gulpConfig.allTypeScript]; //path to angular app ts files, ts definition files
 	var result = gulp.src(source)
 									.pipe(sourcemaps.init())
 									.pipe(tsc(project));
 	
-console.log(gulpConfig.tsOutputPath);	
 	result.dts.pipe(gulp.dest(gulpConfig.tsOutputPath));
 	
 	return result.js.pipe(sourcemaps.write('.'))
