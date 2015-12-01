@@ -1,15 +1,22 @@
-///<reference path="../../node_modules/angular2/angular2.d.ts" />
-import {bootstrap, Component} from 'angular2/angular2';
+import {bootstrap, Component, NgFor } from 'angular2/angular2';
+import {HTTP_PROVIDERS} from 'angular2/http';
+import {BlogPost} from './models/blogpost';
+import {BlogPostService} from './services/concrete/blogservice';
 
 @Component({
     selector: 'my-app',
-    template: '<h1>My First Angular 2 App - YESSSSSS!!</h1>'
+    templateUrl: './app/views/blog/index.html',
+    providers: [BlogPost, BlogPostService],
+    directives: [NgFor]
 })
 
-
 class AppComponent { 
-    public title = 'My New App';
-    public name = 'gary';
+    constructor(service: BlogPostService){
+        this.numbers = service.getActivePosts();
+    }
+    
+    public title = "hey there";
+    public numbers:Array<number>;    
 }
 
-bootstrap(AppComponent);
+bootstrap(AppComponent, [HTTP_PROVIDERS, BlogPostService]);
