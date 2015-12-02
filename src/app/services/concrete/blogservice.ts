@@ -1,19 +1,29 @@
 import {Inject} from 'angular2/angular2';
-import {Http} from 'angular2/http';
+import {Http, Response} from 'angular2/http';
 import {BlogPost} from '../../models/blogpost';
+import {BaseService} from './baseService';
 
-export class BlogPostService{
+export class BlogPostService extends BaseService{
 	
-	constructor(@Inject(Http) http:Http){
-		
+	constructor(@Inject(Http) public http:Http){
+		super();
 	}
 	
 	getActivePosts(){
-		var results:Array<number> = [3, 4, 5, 2, 10];
+		return this.http.get('http://localhost:3000/api/blogs')
+			.map(r => {
+				return (<Response>r).json();
+			})
+			.map((posts: Array<any>) => {
+				let result: Array<string> = [];
+				if(posts){
+					posts.forEach((post) => {
+						result.push(post);
+					})
+				}
+				return result;
+			});			
 		
-		return results;
 	}
-	
-	
 	
 }

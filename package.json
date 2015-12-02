@@ -5,7 +5,8 @@
   "main": "startup.js",
   "scripts": {
     "tsc": "tsc -p src -w",
-	"start": "live-server --open=src"
+    "start": "live-server --open=src",
+	"api": "node-dev ./api/index.js"
   },
   "keywords": [
     "angular2",
@@ -17,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "angular2": "^2.0.0-alpha.46",
+    "express": "^4.13.3",
     "systemjs": "^0.19.6"
   },
   "devDependencies": {

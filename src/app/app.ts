@@ -1,4 +1,4 @@
-import {bootstrap, Component, NgFor } from 'angular2/angular2';
+import {bootstrap, Component, NgFor, CORE_DIRECTIVES } from 'angular2/angular2';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {BlogPost} from './models/blogpost';
 import {BlogPostService} from './services/concrete/blogservice';
@@ -9,14 +9,14 @@ import {BlogPostService} from './services/concrete/blogservice';
     providers: [BlogPost, BlogPostService],
     directives: [NgFor]
 })
-
 class AppComponent { 
     constructor(service: BlogPostService){
-        this.numbers = service.getActivePosts();
+        service.getActivePosts()
+            .subscribe(response => this.numbers = response);
     }
     
     public title = "hey there";
-    public numbers:Array<number>;    
+    public numbers:Array<string>;    
 }
 
 bootstrap(AppComponent, [HTTP_PROVIDERS, BlogPostService]);
