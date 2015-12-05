@@ -26,4 +26,8 @@ export class BlogPostService extends BaseService{
 		
 	}
 	
+	feed(){
+		
+	}
+	
 }

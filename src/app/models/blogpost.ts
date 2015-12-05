@@ -1,3 +1,5 @@
+import {Comment} from './comment';
+
 export class BlogPost{
 
 	//properties
@@ -5,7 +7,9 @@ export class BlogPost{
 	title: string;
 	body: string;
 	isActive: boolean;
-	createdDate: Date;		
+	createdDate: Date;
+	tags: Array<string>;
+	comments: Array<Comment>;
 	
 	//ctor
 	constructor(){

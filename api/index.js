@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 var express = require('express');
 var api = express();
 
@@ -8,14 +9,16 @@ api.use(function(request, response, next){
 	next();
 });
 
-api.get('/api/blogs', function(request, response){
-	var results = [
-		"one",
-		"two",
-		"three"	
-	];
-		
-	response.send(results);
-});
+//open db connection
+var uri = 'mongodb://127.0.0.1/gy';
+global.db = mongoose.createConnection(uri);
 
+//get repository modules
+var blogRepository = require('../src/app/repositories/blogRepository');
+
+//routes
+api.get('/api/blogs', blogRepository.getAllBlogs);
+api.get('/api/blog/:id', blogRepository.getBlog);
+
+//start server
 api.listen(3000);

@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc -p src -w",
     "start": "live-server --open=src",
-	"api": "node-dev ./api/index.js"
+    "api": "node-dev ./api/index.js"
   },
   "keywords": [
     "angular2",
@@ -19,6 +19,7 @@
   "dependencies": {
     "angular2": "^2.0.0-alpha.46",
     "express": "^4.13.3",
+    "mongoose": "^4.2.9",
     "systemjs": "^0.19.6"
   },
   "devDependencies": {
