@@ -11,12 +11,15 @@ import {BlogPostService} from './services/concrete/blogservice';
 })
 class AppComponent { 
     constructor(service: BlogPostService){
+        console.log("hiiiiiiiiiiiiiiiiiiiii");
         service.getActivePosts()
-            .subscribe(response => this.numbers = response);
+            .subscribe(response => {
+                this.posts = response;
+                
+            });
     }
     
-    public title = "hey there";
-    public numbers:Array<string>;    
+    public posts:Array<BlogPost>;    
 }
 
 bootstrap(AppComponent, [HTTP_PROVIDERS, BlogPostService]);

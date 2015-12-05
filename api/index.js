@@ -14,10 +14,11 @@ var uri = 'mongodb://127.0.0.1/gy';
 global.db = mongoose.createConnection(uri);
 
 //get repository modules
-var blogRepository = require('../src/app/repositories/blogRepository');
+var blogRepository = require('./repository/blogRepository');
 
 //routes
 api.get('/api/blogs', blogRepository.getAllBlogs);
+api.get('/api/blog/feed', blogRepository.feed);
 api.get('/api/blog/:id', blogRepository.getBlog);
 
 //start server

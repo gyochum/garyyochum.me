@@ -15,18 +15,22 @@ export class BlogPostService extends BaseService{
 				return (<Response>r).json();
 			})
 			.map((posts: Array<any>) => {
-				let result: Array<string> = [];
+				let result: Array<BlogPost> = [];
 				if(posts){
 					posts.forEach((post) => {
-						result.push(post);
+						var blogPost = new BlogPost();
+						
+						blogPost.title = post.title;
+						blogPost.body = post.body;
+						blogPost.isActive = post.active;
+						blogPost.createdDate = post.created;
+						blogPost.tags = post.tags;
+						
+						result.push(blogPost);
 					})
 				}
 				return result;
 			});			
-		
-	}
-	
-	feed(){
 		
 	}
 	
