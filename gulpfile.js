@@ -1,48 +1,27 @@
-var gulp = require('gulp'),
-		tsc = require('gulp-typescript'),
-		inject = require('gulp-inject'),		
-		sourcemaps = require('gulp-sourcemaps'),
-		tslint = require('gulp-tslint'),
-		del = require('del');
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var typscript = require('gulp-typescript');
 
-var gulpConfig = {
-	
-	//default base folders
-	source: './src/',
-	sourceApp: './src/app/',
+//sass
+gulp.task('sass', function(){
+	//specify source of sass files to compile
+	gulp.src('./src/sass/**/*.scss')
+		//compile the sass files, logging any errors that occur
+		.pipe(sass().on('error', sass.logError))
+		//where the compiled css ends up
+		.pipe(gulp.dest('./src/assets/css'));
+});
 
-	/*typescript************************/
-	tsOutputPath: './src/assets/js',
-	allJavaScript: ['./src/assets/js/**/*.js'],
-	allTypeScript: './src/app/**/*.ts',
-
-	typings: './src/definitions/',
-	libraryTypeScriptDefinitions: './src/definitions/**/*.ts'
-	
-}		
+//typescript
+gulp.task('typescript', function(){
+	var project = typscript.createProject('./src/tsconfig.json');
+	var result = project.src()
+		.pipe(typscript(project));
 		
-var project = tsc.createProject({
-		target: 'ES5',
-		declaration: false,
-		sourcemaps: true,
-		module: 'amd'
-});		
-
-//tasks
-gulp.task('compile-ts', function(){
-	var source = [gulpConfig.allTypeScript]; //path to angular app ts files, ts definition files
-	var result = gulp.src(source)
-									.pipe(sourcemaps.init())
-									.pipe(tsc(project));
+		
+	process.stdout.write(result);
 	
-	result.dts.pipe(gulp.dest(gulpConfig.tsOutputPath));
 	
-	return result.js.pipe(sourcemaps.write('.'))
-									.pipe(gulp.dest(gulpConfig.tsOutputPath));
+	return result.js;
 });
-
-gulp.task('watch', function(){
-		gulp.watch([gulpConfig.allTypeScript], ['compile-ts']);
-});
-
-gulp.task('default', ['compile-ts']);
+		

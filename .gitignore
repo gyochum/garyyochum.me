@@ -6,3 +6,6 @@ src/definitions
 # all generated js
 src/app/**/*.js
 src/app/**/*.js.map
+
+#all generated css
+src/assets/css/**/*.css
