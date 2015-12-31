@@ -2,3 +2,9 @@ body{
 	color: $font-color;
 	font-family: $font-family;
 }
+
+.container{
+	margin: 0 auto;
+	width: 860px;
+	border: 1px solid #000;
+}

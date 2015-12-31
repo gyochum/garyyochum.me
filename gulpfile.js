@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var typscript = require('gulp-typescript');
+var process = require('child_process');
 
 //sass
 gulp.task('sass', function(){
@@ -10,6 +11,13 @@ gulp.task('sass', function(){
 		.pipe(sass().on('error', sass.logError))
 		//where the compiled css ends up
 		.pipe(gulp.dest('./src/assets/css'));
+});
+
+//mongodb start
+gulp.task('mongodb-start', function(){
+	process.exec('start mongod --dbpath ./data', function(error, stdout, stderr){
+		console.log(stdout);
+	});
 });
 
 //typescript

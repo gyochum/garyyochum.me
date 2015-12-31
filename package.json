@@ -5,8 +5,9 @@
   "main": "startup.js",
   "scripts": {
     "tsc": "tsc -p src -w",
-    "start": "live-server --open=src",
-    "api": "node-dev ./api/index.js"
+    "live": "live-server --open=src",
+    "api": "node-dev ./api/index.js",
+    "start": "concurrent \"npm run tsc\" \"npm run live\" \"npm run api\" "
   },
   "keywords": [
     "angular2",
@@ -19,10 +20,12 @@
   "dependencies": {
     "angular2": "^2.0.0-alpha.46",
     "express": "^4.13.3",
+    "mongodb": "^2.1.2",
     "mongoose": "^4.2.9",
     "systemjs": "^0.19.6"
   },
   "devDependencies": {
+    "concurrently": "^1.0.0",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.1.1",
     "gulp-typescript": "^2.10.0",
