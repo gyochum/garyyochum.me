@@ -1,25 +1,15 @@
-import {bootstrap, Component, NgFor, CORE_DIRECTIVES } from 'angular2/angular2';
+import {bootstrap, bind, provide } from 'angular2/angular2';
+import {ROUTER_PROVIDERS, ROUTER_BINDINGS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
-import {BlogPost} from './models/blogpost';
+//import {BlogPost} from './models/blogpost';
 import {BlogPostService} from './services/concrete/blogservice';
+import { App } from './components/base'; 
 
-@Component({
-    selector: 'my-app',
-    templateUrl: './app/views/blog/index.html',
-    providers: [BlogPost, BlogPostService],
-    directives: [NgFor]
-})
-class AppComponent { 
-    constructor(service: BlogPostService){
-        console.log("hiiiiiiiiiiiiiiiiiiiii");
-        service.getActivePosts()
-            .subscribe(response => {
-                this.posts = response;
-                
-            });
-    }
-    
-    public posts:Array<BlogPost>;    
-}
+var injectables = [
+  ROUTER_PROVIDERS,
+  ROUTER_BINDINGS,
+  HTTP_PROVIDERS,
+  BlogPostService  
+];
 
-bootstrap(AppComponent, [HTTP_PROVIDERS, BlogPostService]);
+bootstrap(App, [injectables, provide(LocationStrategy, {useClass: HashLocationStrategy})]);
