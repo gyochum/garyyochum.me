@@ -1,5 +1,5 @@
 import {Inject} from 'angular2/angular2';
-import {Http, Response} from 'angular2/http';
+import {Http, Response, Headers} from 'angular2/http';
 import {BlogPost} from '../../models/blogpost';
 import {BaseService} from './baseService';
 
@@ -30,8 +30,12 @@ export class BlogPostService extends BaseService{
 					})
 				}
 				return result;
-			});			
-		
+			});					
 	}
+    
+    save(post: BlogPost){ 
+        return this.http.post('http://localhost:3000/api/blog/save', JSON.stringify(post))
+                        .map((response: Response) => response.json());
+    }
 	
 }

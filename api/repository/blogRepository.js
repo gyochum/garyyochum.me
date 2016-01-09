@@ -19,9 +19,9 @@ exports.getBlog = function(request, response, next){
 	response.send(model.modelName + 'heyy');
 }
 
-exports.feed = function(request, response, next){
+exports.save = function(request, response, next){
 	
-		var counter = 2;
+		/*var counter = 2;
 		model.create({
 			title: 'blog ' + counter,
 			body: 'body',
@@ -41,6 +41,7 @@ exports.feed = function(request, response, next){
 				return next(err);
 				
 			response.send('saved');
-		});
+		});*/
 	
+    response.send({response: request.body.title});
 }

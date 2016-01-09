@@ -1,6 +1,7 @@
 import { Component, View } from 'angular2/angular2';
 import { RouteConfig, RouterLink, RouterOutlet } from 'angular2/router';
 import { BlogPostComponent } from '../components/blogs'; 
+import { SaveBlogPostComponent } from '../components/save-blog';
 
 @Component({
 	selector: 'app',
@@ -10,7 +11,8 @@ import { BlogPostComponent } from '../components/blogs';
 
 @RouteConfig([
     { path: '/', redirectTo: '/blogs' },
-    { path: '/blogs', as: 'Blogs', component: BlogPostComponent }
+    { path: '/blogs', as: 'Blogs', component: BlogPostComponent },
+    { path: '/blog/save', as: 'SaveBlogs', component: SaveBlogPostComponent }
 ])
 
 export class App{

@@ -1,4 +1,5 @@
 import { Component, View, NgFor } from 'angular2/angular2';
+import { RouterLink } from 'angular2/router';
 import {BlogPost} from '../models/blogpost';
 import {BlogPostService} from '../services/concrete/blogservice';
 
@@ -6,7 +7,7 @@ import {BlogPostService} from '../services/concrete/blogservice';
     selector: 'blogs',
     templateUrl: './app/views/blog/index.html',
     providers: [BlogPost, BlogPostService],
-    directives: [NgFor]    
+    directives: [NgFor, RouterLink]    
 })
 
 export class BlogPostComponent { 
