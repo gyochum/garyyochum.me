@@ -12,6 +12,7 @@ import { SaveBlogPostComponent } from '../components/save-blog';
 @RouteConfig([
     { path: '/', redirectTo: '/blogs' },
     { path: '/blogs', as: 'Blogs', component: BlogPostComponent },
+    { path: '/blog/:id', as: 'BlogDetail', component: BlogPostComponent },
     { path: '/blog/save', as: 'SaveBlogs', component: SaveBlogPostComponent }
 ])
 

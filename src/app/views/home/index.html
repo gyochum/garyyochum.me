@@ -1,4 +1,11 @@
-<div class="container">	
-	<h1>{{title}}</h1>
-	<router-outlet></router-outlet>
+<div class="container">
+    <header class="site-header">
+        <div class="avatar">
+            <img src="/src/assets/images/avatar.jpg" alt="gary" />
+        </div>
+        <h1 class="title">Gary's Super Fun Blog</h1>    
+    </header>
+    <div class="site-body">
+	   <router-outlet></router-outlet>    
+    </div>		
 </div>

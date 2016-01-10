@@ -1,5 +1,7 @@
-<h1>BLOG POSTS!!</h1>
 <a [router-link]="['SaveBlogs']">Add a new blog post</a>
-<ul>
-	<li *ng-for="#post of posts">{{post.title}}</li>
-</ul>
+<article *ng-for="#post of posts">
+    <h1 class="title">
+        <!--<a [router-link] = "['BlogDetail']">{{post.title}}</a>-->
+        <a href="#">{{post.title}}</a>
+    </h1>
+</article>

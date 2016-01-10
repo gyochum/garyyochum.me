@@ -1,10 +1,70 @@
 body{
 	color: $font-color;
 	font-family: $font-family;
+    font-size: $base-font-size;
+}
+
+a{
+    color: #363534;
+    text-decoration: none;
+}
+
+img{
+    border: 0;
+    max-width: 100%;
 }
 
 .container{
 	margin: 0 auto;
-	width: 860px;
-	border: 1px solid #000;
+	width: 860px;	
+}
+
+.site-header{
+    width: 220px;
+    float: left;
+    padding-top: 50px;
+    position: fixed;
+    text-align: center;    
+    
+    .title{
+        font-size: 1.5em;
+    }
+    
+    .title::after{
+        content: "";
+        display: block;
+        width: 25%;        
+        margin: 0 auto 20px;
+        border-bottom: 1px solid #000;
+        padding-bottom: 30px;
+    }
+}
+
+.site-body{
+    float: right;
+    padding: 60px 0;
+    width: 610px;
+    border: 1px solid #999;
+}
+
+.avatar{
+    
+    img{
+        @include border-radius(50%);
+        display: block;
+        margin: 0 auto 30px;
+        height: 112px;
+        width: 108px;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    
+    .container
+    .site-header
+    .site-body{
+        width: 100%;
+        float: none;
+    }
+    
 }
