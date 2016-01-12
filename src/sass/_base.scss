@@ -28,23 +28,22 @@ img{
     
     .title{
         font-size: 1.5em;
-    }
-    
-    .title::after{
-        content: "";
-        display: block;
-        width: 25%;        
-        margin: 0 auto 20px;
-        border-bottom: 1px solid #000;
-        padding-bottom: 30px;
-    }
+        
+        &:after{
+            content: "";
+            display: block;
+            width: 25%;        
+            margin: 0 auto 20px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 30px;
+        }
+    }        
 }
 
 .site-body{
     float: right;
     padding: 60px 0;
-    width: 610px;
-    border: 1px solid #999;
+    width: 610px;    
 }
 
 .avatar{
@@ -56,6 +55,11 @@ img{
         height: 112px;
         width: 108px;
     }
+}
+
+.text-block{
+    @include word-wrap();
+    line-height: 1.2;
 }
 
 @media only screen and (max-width: 768px){

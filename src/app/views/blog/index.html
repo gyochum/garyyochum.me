@@ -1,7 +1,6 @@
 <a [router-link]="['SaveBlogs']">Add a new blog post</a>
 <article *ng-for="#post of posts">
     <h1 class="title">
-        <!--<a [router-link] = "['BlogDetail']">{{post.title}}</a>-->
-        <a href="#">{{post.title}}</a>
+        <a [router-link] = "['BlogDetail', { 'id': post.id }]">{{post.title}}</a>        
     </h1>
 </article>

@@ -1,4 +1,5 @@
 var model = require('../models/blog');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 exports.getAllBlogs = function(request, response, next){
 	model.find(function(error, results){
@@ -16,7 +17,22 @@ exports.getAllBlogs = function(request, response, next){
 
 exports.getBlog = function(request, response, next){
 	var id = request.params.id;
-	response.send(model.modelName + 'heyy');
+    
+    var query = model.find({
+        "_id": new ObjectId(id)
+    }).limit(1);
+    
+    query.exec(function(error, post){
+        if(error)
+			return next(error);
+		
+		try{
+			return response.send(post);	
+		}
+		catch(e){
+			response.send('error: ' + e);
+		}
+    });	
 }
 
 exports.save = function(request, response, next){

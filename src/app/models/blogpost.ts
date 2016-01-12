@@ -3,8 +3,10 @@ import {Comment} from './comment';
 export class BlogPost{
 
 	//properties
-	id: number;
+	id: string;
+    url: string;
 	title: string;
+    preview: string;
 	body: string;
 	isActive: boolean;
 	createdDate: Date;

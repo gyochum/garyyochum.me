@@ -1,4 +1,27 @@
-<form [ng-form-model]="blogForm" (submit)="save()">
-    <input ng-control="title" placeholder="enter title" type="text" />
-    <button type="submit">save</button>
-</form>
+<section class="save-blog">
+    <h1 class="title">Manage Your Blog Posts</h1>
+    <form [ng-form-model]="blogForm" (submit)="save()" novalidate>
+        <input ng-control="isActive" type="checkbox" /> <span class="label">Active?</span>
+        <label for="title">
+            Title <span>*</span>
+        </label>
+        <input name="title" ng-control="title" placeholder="enter title" type="text" />
+        
+        <label for="url">
+            Url <span>*</span>
+        </label>
+        <input name="url" ng-control="url" placeholder="enter url" type="text" />
+        
+        <label for="preview">
+            Preview <span>*</span>
+        </label>
+        <textarea name="preview" ng-control="preview" placeholder="enter preview" rows="5" cols="45"></textarea>
+        
+        <label for="body">
+            Body <span>*</span>
+        </label>
+        <textarea name="body" ng-control="body" placeholder="enter body of post" rows="10" cols="45"></textarea>
+        
+        <button type="submit">Save</button>
+    </form>
+</section>

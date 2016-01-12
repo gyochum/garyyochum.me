@@ -1,0 +1,33 @@
+label{
+    display: block;
+    font-size: 1.3em;
+}
+
+span.label{
+    font-size: 1.3em;
+}
+
+input, textarea{
+    border: 1px solid #999;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type=text], textarea{
+    padding: 10px;
+}
+
+input[type=checkbox]{
+    display: inline;
+}
+
+button{
+    border: 1px solid #363534;
+    padding: 10px 20px;
+    transition: ease 0.5s background-color;
+    background-color: #fff;
+    
+    &:hover{
+        background-color: #ccc;
+    }
+}

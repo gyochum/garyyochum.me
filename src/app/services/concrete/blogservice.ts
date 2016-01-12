@@ -20,6 +20,8 @@ export class BlogPostService extends BaseService{
 					posts.forEach((post) => {
 						var blogPost = new BlogPost();
 						
+                        blogPost.id = post._id;
+                        blogPost.url = post.url;
 						blogPost.title = post.title;
 						blogPost.body = post.body;
 						blogPost.isActive = post.active;
@@ -32,6 +34,27 @@ export class BlogPostService extends BaseService{
 				return result;
 			});					
 	}
+    
+    getBlogPost(id: string){
+        return this.http.get('http://localhost:3000/api/blog/' + id)
+                .map(r => {
+                    return (<Response>r).json();
+                })
+                .map((post: any) => {
+                   let result: any = new BlogPost();
+                   if(post){
+                       result.id = post._id;
+                       result.url = post.url;
+                       result.title = post.title;
+						result.body = post.body;
+						result.isActive = post.active;
+						result.createdDate = post.created;
+						result.tags = post.tags;
+                   }  
+                   
+                   return result;
+                });
+    }
     
     save(post: BlogPost){ 
         return this.http.post('http://localhost:3000/api/blog/save', JSON.stringify(post))

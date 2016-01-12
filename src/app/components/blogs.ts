@@ -11,8 +11,7 @@ import {BlogPostService} from '../services/concrete/blogservice';
 })
 
 export class BlogPostComponent { 
-    constructor(service: BlogPostService){
-        console.log("hiiiiiiiiiiiiiiiiiiiii");
+    constructor(service: BlogPostService){        
         service.getActivePosts()
             .subscribe(response => {
                 this.posts = response;

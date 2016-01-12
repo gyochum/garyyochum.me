@@ -3,6 +3,7 @@ var Schema = require('../../node_modules/mongoose/lib').Schema;
 //set up schemas
 var blogSchema = new Schema({
 	id: Number,
+    url: String,
 	title: String,
 	body: String,
 	active: Boolean,
