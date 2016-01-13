@@ -22,12 +22,13 @@ input[type=checkbox]{
 }
 
 button{
-    border: 1px solid #363534;
+    border: 1px solid #444;
     padding: 10px 20px;
     transition: ease 0.5s background-color;
-    background-color: #fff;
+    color: #fff;
+    background-color: #444;
     
     &:hover{
-        background-color: #ccc;
+        background-color: #999;
     }
 }

@@ -4,9 +4,13 @@ import {BlogPost} from '../../models/blogpost';
 import {BaseService} from './baseService';
 
 export class BlogPostService extends BaseService{
-	
-	constructor(@Inject(Http) public http:Http){
-		super();
+	public headers:Headers;
+    
+	constructor(@Inject(Http) public http:Http){		        
+        super();
+        
+        this.headers = new Headers();
+        this.headers.append("Content-Type", "application/json");
 	}
 	
 	getActivePosts(){
@@ -25,7 +29,7 @@ export class BlogPostService extends BaseService{
 						blogPost.title = post.title;
 						blogPost.body = post.body;
 						blogPost.isActive = post.active;
-						blogPost.createdDate = post.created;
+						blogPost.createdDate = new Date(post.created);
 						blogPost.tags = post.tags;
 						
 						result.push(blogPost);
@@ -36,7 +40,7 @@ export class BlogPostService extends BaseService{
 	}
     
     getBlogPost(id: string){
-        return this.http.get('http://localhost:3000/api/blog/' + id)
+        return this.http.get('http://localhost:3000/api/blogs/' + id)
                 .map(r => {
                     return (<Response>r).json();
                 })
@@ -56,8 +60,8 @@ export class BlogPostService extends BaseService{
                 });
     }
     
-    save(post: BlogPost){ 
-        return this.http.post('http://localhost:3000/api/blog/save', JSON.stringify(post))
+    save(post: BlogPost){                       
+        return this.http.post('http://localhost:3000/api/blogs', JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => response.json());
     }
 	

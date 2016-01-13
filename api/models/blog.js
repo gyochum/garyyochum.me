@@ -5,6 +5,7 @@ var blogSchema = new Schema({
 	id: Number,
     url: String,
 	title: String,
+    preview: String,
 	body: String,
 	active: Boolean,
 	comments: [{

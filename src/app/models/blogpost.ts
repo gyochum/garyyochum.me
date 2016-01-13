@@ -11,10 +11,17 @@ export class BlogPost{
 	isActive: boolean;
 	createdDate: Date;
 	tags: Array<string>;
-	comments: Array<Comment>;
+	public comments: Array<Comment>;
 	
 	//ctor
 	constructor(){
 		
 	}
+    
+    commentCount(){
+        if (this.comments && this.comments.length > 0)
+            return this.comments.length;
+        else
+            return 0;    
+    }
 }

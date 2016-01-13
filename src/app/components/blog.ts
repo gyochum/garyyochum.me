@@ -12,7 +12,7 @@ import {BlogPostService} from '../services/concrete/blogservice';
 
 export class BlogPostDetailComponent{
     constructor(params: RouteParams, service: BlogPostService){
-        var id: number = parseInt(params.get('id'));
+        var id: string = params.get('id');
         
         service.getBlogPost(id)
             .subscribe(response => {

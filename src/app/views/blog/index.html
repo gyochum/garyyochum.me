@@ -1,6 +1,12 @@
 <a [router-link]="['SaveBlogs']">Add a new blog post</a>
-<article *ng-for="#post of posts">
+<article *ng-for="#post of posts">    
     <h1 class="title">
         <a [router-link] = "['BlogDetail', { 'id': post.id }]">{{post.title}}</a>        
     </h1>
+    <p class="meta-data">
+        {{post.createdDate | date: 'yMMMMd'}} - 
+        <span *ng-if="post.commentCount() > 0">{{post.commentCount()}} Comments</span>
+        <span *ng-if="post.commentCount() <= 0">Leave a Comment</span>
+    </p>
+    <p>{{post.body}}</p>
 </article>
