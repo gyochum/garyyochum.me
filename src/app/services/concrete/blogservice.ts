@@ -44,15 +44,18 @@ export class BlogPostService extends BaseService{
                 .map(r => {
                     return (<Response>r).json();
                 })
-                .map((post: any) => {
-                   let result: any = new BlogPost();
-                   if(post){
+                .map((posts: Array<any>) => {                    
+                   let result: BlogPost = new BlogPost();
+                   
+                   if(posts && posts.length > 0){
+                       var post = posts[0];
+                       
                        result.id = post._id;
                        result.url = post.url;
                        result.title = post.title;
 						result.body = post.body;
 						result.isActive = post.active;
-						result.createdDate = post.created;
+						result.createdDate = new Date(post.created);
 						result.tags = post.tags;
                    }  
                    

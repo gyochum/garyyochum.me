@@ -1,0 +1,36 @@
+<section>
+    <h1 class="title">
+    detail {{post.title}}        
+    </h1>
+    <p class="meta-data">
+        {{post.createdDate | date: 'yMMMMd'}} 
+        <!--<span *ng-if="commentCount() > 0">{{commentCount()}} Comments</span>
+        <span *ng-if="commentCount() <= 0">Leave a Comment</span>-->
+        
+    </p>
+    <p>{{post.body}}</p>
+</section>
+<section>
+    <h3>Comments</h3>
+</section>
+<section>
+    <h1 class="title">Drop a Line</h1>
+    <form [ng-form-model]="commentForm" (submit)="saveComment()" novalidate>
+        <label for="name">
+            Name <span>*</span>
+        </label>
+        <input name="name" ng-control="name" placeholder="enter your name" type="text" />
+        
+        <label for="email">
+            Email <span>*</span>
+        </label>
+        <input name="email" ng-control="email" placeholder="enter your email" type="text" />
+        
+        <label for="body">
+            Body <span>*</span>
+        </label>
+        <textarea name="body" ng-control="body" placeholder="enter body of post" rows="10" cols="45"></textarea>
+        
+        <button type="submit">Save</button>
+    </form>
+</section>
