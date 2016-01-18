@@ -1,6 +1,7 @@
 import {Inject} from 'angular2/angular2';
 import {Http, Response, Headers} from 'angular2/http';
 import {BlogPost} from '../../models/blogpost';
+import {Comment} from '../../models/comment';
 import {BaseService} from './baseService';
 
 export class BlogPostService extends BaseService{
@@ -31,6 +32,7 @@ export class BlogPostService extends BaseService{
 						blogPost.isActive = post.active;
 						blogPost.createdDate = new Date(post.created);
 						blogPost.tags = post.tags;
+                        blogPost.comments = post.comments;
 						
 						result.push(blogPost);
 					})
@@ -65,6 +67,11 @@ export class BlogPostService extends BaseService{
     
     save(post: BlogPost){                       
         return this.http.post('http://localhost:3000/api/blogs', JSON.stringify(post), { headers: this.headers })
+                        .map((response: Response) => response.json());
+    }
+    
+    saveComment(comment: Comment){
+        return this.http.post('http://localhost:3000/api/comments', JSON.stringify(comment), { headers: this.headers })
                         .map((response: Response) => response.json());
     }
 	

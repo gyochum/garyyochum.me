@@ -1,4 +1,5 @@
 var model = require('../models/blog');
+var Comment = require('../models/comment');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 exports.all = function(request, response, next){
@@ -19,7 +20,7 @@ exports.detail = function(request, response, next){
 	var id = request.params.id;
     
     var query = model.find({
-        "_id": new ObjectId(id)
+        "url": id
     }).limit(1);
     
     query.exec(function(error, post){
@@ -58,4 +59,37 @@ exports.update = function(request, response, next){
 
 exports.delete = function(request, response, next){
  //todo: add code here   
+}
+
+exports.addComment = function(request, response, next){
+    var comment = request.body;
+        
+    if(comment){
+        var url = comment.blogUrl;
+        var newComment = new Comment();
+
+        newComment.set({
+            name: comment.name,
+            email: comment.email,
+            body: comment.body,
+            created: Date.now()
+        });
+        
+        model.findOneAndUpdate({
+            url: url
+        }, {
+            $push: {
+                comments: newComment
+            }            
+        },
+        {
+            safe: true,
+            upsert: true
+        }, function(error, post){
+            if (error)
+                console.log(error);
+                
+            response.send(post);
+        })
+    }    
 }

@@ -1,4 +1,5 @@
 var Schema = require('../../node_modules/mongoose/lib').Schema; 
+var Comment = require('./comment');
 
 //set up schemas
 var blogSchema = new Schema({
@@ -8,11 +9,14 @@ var blogSchema = new Schema({
     preview: String,
 	body: String,
 	active: Boolean,
-	comments: [{
-		name: String,
-		body: String,
-		created: {type: Date, default: Date.now}	
-	}],
+	//comments: [Comment],
+    comments: [{
+        id: Number,
+        name: String,
+        email: String,
+        body: String,
+        created: {type: Date, default: Date.now}
+    }],
 	tags: [String],
 	created: {type: Date, default: Date.now}
 });
