@@ -1,4 +1,4 @@
-import { Component, View, NgIf, FormBuilder, Validators, FORM_DIRECTIVES } from 'angular2/angular2';
+import { Component, View, NgIf, NgFor, FormBuilder, Validators, FORM_DIRECTIVES } from 'angular2/angular2';
 import { RouterLink, RouteParams } from 'angular2/router';
 import {BlogPost} from '../models/blogpost';
 import {Comment} from '../models/comment';
@@ -8,7 +8,7 @@ import {BlogPostService} from '../services/concrete/blogservice';
     selector: 'blog-detail',
     templateUrl: './app/views/blog/detail.html',
     providers: [BlogPost, BlogPostService],
-    directives: [RouterLink, NgIf, FORM_DIRECTIVES],
+    directives: [RouterLink, NgIf, NgFor, FORM_DIRECTIVES],
     inputs: ['post', 'commentForm']
 })
 
@@ -20,6 +20,7 @@ export class BlogPostDetailComponent{
         this.service = service;        
         this.post = new BlogPost();
         this.commentForm = fb.group({
+            blogPostId: [id],
             name: ["", Validators.required],
             email: ["", Validators.required],
             body: [""]
@@ -28,17 +29,23 @@ export class BlogPostDetailComponent{
         service.getBlogPost(id)
             .subscribe(response => {                
                 this.post = response;
-            });
-           
+            });                   
     }
     
     saveComment(){
         if(this.commentForm.valid){
             var comment = new Comment();
+            
+            comment.blogPostId = this.commentForm.value.blogPostId;
             comment.name = this.commentForm.value.name; 
             comment.email = this.commentForm.value.email;
             comment.body = this.commentForm.value.body;
             
+            this.service.saveComment(comment)
+                .subscribe(response => {
+                   this.post.comments = <Comment[]>response; 
+                   toastr.success('comment added successfully.');
+                });
         }
         
         //this.service.saveComment

@@ -32,7 +32,7 @@ export class BlogPostService extends BaseService{
 						blogPost.isActive = post.active;
 						blogPost.createdDate = new Date(post.created);
 						blogPost.tags = post.tags;
-                        blogPost.comments = post.comments;
+                        blogPost.comments = this.mapComments(post.comments);
 						
 						result.push(blogPost);
 					})
@@ -59,6 +59,7 @@ export class BlogPostService extends BaseService{
 						result.isActive = post.active;
 						result.createdDate = new Date(post.created);
 						result.tags = post.tags;
+                        result.comments = this.mapComments(post.comments);
                    }  
                    
                    return result;
@@ -72,7 +73,41 @@ export class BlogPostService extends BaseService{
     
     saveComment(comment: Comment){
         return this.http.post('http://localhost:3000/api/comments', JSON.stringify(comment), { headers: this.headers })
-                        .map((response: Response) => response.json());
+                        .map(r => {
+                            return (<Response>r).json();
+                        })
+                        .map((posts: Array<any>) => {
+                            let results: Array<Comment> = new Array<Comment>();
+                            
+                            if(posts && posts.length > 0){
+                                var post = posts[0];
+                                
+                                if(post.comments && post.comments.length > 0){
+                                    results = this.mapComments(post.comments);
+                                }
+                            }    
+                            
+                            return results;
+                        });
+                        
+    }
+    
+    private mapComments(comments: Array<any>): Array<Comment> {
+        var results: Array<Comment> = new Array<Comment>();
+        
+        if (comments){
+            comments.forEach(c => {
+                var comment = new Comment();
+                
+                comment.name = c.name;
+                comment.body = c.body;
+                comment.createdDate = new Date(c.created);
+                
+                results.push(comment);
+            });
+        }
+        
+        return results;
     }
 	
 }

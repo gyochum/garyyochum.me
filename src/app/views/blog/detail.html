@@ -1,6 +1,8 @@
 <section>
     <h1 class="title">
-    detail {{post.title}}        
+    detail {{post.title}} 
+    <i class="fa fa-pencil"></i>
+    <i class="fa fa-trash"></i>
     </h1>
     <p class="meta-data">
         {{post.createdDate | date: 'yMMMMd'}} 
@@ -12,10 +14,20 @@
 </section>
 <section>
     <h3>Comments</h3>
+    <ol *ng-for="#comment of post.comments">
+        <li class="comment">
+            <header>
+                <img src="http://placecage.com/56/56" alt="#post.name" class="avatar" />
+                <span>{{comment.name}} says</span>
+                <span>{{comment.createdDate | date: 'yMMMMd'}}
+            </header>    
+        </li>
+    </ol>
 </section>
 <section>
     <h1 class="title">Drop a Line</h1>
     <form [ng-form-model]="commentForm" (submit)="saveComment()" novalidate>
+        <input name="blogPostId" type='hidden' ng-control="blogPostId" />
         <label for="name">
             Name <span>*</span>
         </label>

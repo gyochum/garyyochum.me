@@ -65,7 +65,7 @@ exports.addComment = function(request, response, next){
     var comment = request.body;
         
     if(comment){
-        var url = comment.blogUrl;
+        var url = comment.blogPostId;
         var newComment = new Comment();
 
         newComment.set({
@@ -84,12 +84,13 @@ exports.addComment = function(request, response, next){
         },
         {
             safe: true,
-            upsert: true
+            upsert: false,
+            new: true
         }, function(error, post){
             if (error)
                 console.log(error);
                 
-            response.send(post);
+            response.send(post.comments);
         })
     }    
 }

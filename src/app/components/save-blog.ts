@@ -1,4 +1,4 @@
-import { Component, FormBuilder, Validators, FORM_DIRECTIVES } from 'angular2/angular2';
+import { Component, FormBuilder, Validators, FORM_DIRECTIVES, AbstractControl, ControlGroup } from 'angular2/angular2';
 import { BlogPostService } from '../services/concrete/blogService';
 import { BlogPost } from '../models/blogPost';
 
@@ -19,22 +19,35 @@ export class SaveBlogPostComponent{
             body: ["", Validators.required],
             isActive: [false]
         });
+        this.title = this.blogForm.controls["title"];
+        console.log(this.title);
+        this.url = this.blogForm.controls["url"];
+        this.preview = this.blogForm.controls["preview"];
+        this.body = this.blogForm.controls["body"];
     }
     
     save(){
-        var post = new BlogPost();
-        post.isActive = this.blogForm.value.isActive;
-        post.title = this.blogForm.value.title;
-        post.url = this.blogForm.value.url;
-        post.preview = this.blogForm.value.preview;
-        post.body = this.blogForm.value.body;
+        if(this.blogForm.valid){
+          /*var post = new BlogPost();
+            post.isActive = this.blogForm.value.isActive;
+            post.title = this.blogForm.value.title;
+            post.url = this.blogForm.value.url;
+            post.preview = this.blogForm.value.preview;
+            post.body = this.blogForm.value.body;
+            
+            this.service.save(post)
+                .subscribe(response => {
+                    console.log(response);
+                });*/
+                console.log("valid");  
+        }
         
-        this.service.save(post)
-            .subscribe(response => {
-                console.log(response);
-            });
     }
     
-    blogForm:any;
+    blogForm:ControlGroup;
+    title: AbstractControl;
+    url: AbstractControl;
+    preview: AbstractControl;
+    body: AbstractControl;
     service: BlogPostService;
 }

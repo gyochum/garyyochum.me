@@ -21,6 +21,11 @@ input[type=checkbox]{
     display: inline;
 }
 
+.error{
+    color: #ff0000;
+    margin-bottom: 5px;
+}
+
 button{
     border: 1px solid #444;
     padding: 10px 20px;
@@ -30,5 +35,12 @@ button{
     
     &:hover{
         background-color: #999;
+    }
+    
+    &[disabled="diabled"]{
+        color: #ccc;
+        background-color: #777;
+        border: none;        
+       
     }
 }

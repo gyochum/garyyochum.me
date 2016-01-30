@@ -6,6 +6,9 @@
             Title <span>*</span>
         </label>
         <input name="title" ng-control="title" placeholder="enter title" type="text" />
+        <div *ng-if="!title.valid && title.touched" class="error">
+            Please enter a title.
+        </div>
         
         <label for="url">
             Url <span>*</span>
@@ -22,6 +25,6 @@
         </label>
         <textarea name="body" ng-control="body" placeholder="enter body of post" rows="10" cols="45"></textarea>
         
-        <button type="submit">Save</button>
+        <button type="submit" [disabled]="!blogForm.valid">Save</button>
     </form>
 </section>
