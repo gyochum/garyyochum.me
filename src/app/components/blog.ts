@@ -3,13 +3,15 @@ import { RouterLink, RouteParams } from 'angular2/router';
 import {BlogPost} from '../models/blogpost';
 import {Comment} from '../models/comment';
 import {BlogPostService} from '../services/concrete/blogservice';
+import {OrderByPipe} from '../pipes/orderby';
 
 @Component({
     selector: 'blog-detail',
     templateUrl: './app/views/blog/detail.html',
     providers: [BlogPost, BlogPostService],
     directives: [RouterLink, NgIf, NgFor, FORM_DIRECTIVES],
-    inputs: ['post', 'commentForm']
+    inputs: ['post', 'commentForm'],
+    pipes: [OrderByPipe]
 })
 
 
@@ -44,11 +46,16 @@ export class BlogPostDetailComponent{
             this.service.saveComment(comment)
                 .subscribe(response => {
                    this.post.comments = <Comment[]>response; 
+                   console.log(this.post.comments);
                    toastr.success('comment added successfully.');
                 });
         }
         
         //this.service.saveComment
+    }
+    
+    deleteComment(commentId: string){
+        console.log(commentId);
     }
     
     public service: BlogPostService;

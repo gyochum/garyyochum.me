@@ -76,14 +76,14 @@ export class BlogPostService extends BaseService{
                         .map(r => {
                             return (<Response>r).json();
                         })
-                        .map((posts: Array<any>) => {
+                        .map((comments: Array<any>) => {
                             let results: Array<Comment> = new Array<Comment>();
                             
-                            if(posts && posts.length > 0){
-                                var post = posts[0];
+                            if(comments && comments.length > 0){
+                                //var post = posts[0];
                                 
-                                if(post.comments && post.comments.length > 0){
-                                    results = this.mapComments(post.comments);
+                                if(comments && comments.length > 0){
+                                    results = this.mapComments(comments);
                                 }
                             }    
                             
@@ -99,6 +99,7 @@ export class BlogPostService extends BaseService{
             comments.forEach(c => {
                 var comment = new Comment();
                 
+                comment.id = c._id;
                 comment.name = c.name;
                 comment.body = c.body;
                 comment.createdDate = new Date(c.created);

@@ -5,21 +5,19 @@
     <i class="fa fa-trash"></i>
     </h1>
     <p class="meta-data">
-        {{post.createdDate | date: 'yMMMMd'}} 
-        <!--<span *ng-if="commentCount() > 0">{{commentCount()}} Comments</span>
-        <span *ng-if="commentCount() <= 0">Leave a Comment</span>-->
-        
+        {{post.createdDate | date: 'yMMMMd'}}         
     </p>
     <p>{{post.body}}</p>
 </section>
 <section>
     <h3>Comments</h3>
-    <ol *ng-for="#comment of post.comments">
+    <ol *ng-for="#comment of post.comments | orderby: 'createdDate': 'desc'">
         <li class="comment">
             <header>
                 <img src="http://placecage.com/56/56" alt="#post.name" class="avatar" />
                 <span>{{comment.name}} says</span>
                 <span>{{comment.createdDate | date: 'yMMMMd'}}
+                <i class="fa fa-trash" (click)="deleteComment(comment.id)"></i>
             </header>    
         </li>
     </ol>
