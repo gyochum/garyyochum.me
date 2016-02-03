@@ -46,7 +46,6 @@ export class BlogPostDetailComponent{
             this.service.saveComment(comment)
                 .subscribe(response => {
                    this.post.comments = <Comment[]>response; 
-                   console.log(this.post.comments);
                    toastr.success('comment added successfully.');
                 });
         }

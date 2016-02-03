@@ -19,7 +19,6 @@ export class BlogPost{
 	}
     
     commentCount(){
-        console.log(this);
         if (this.comments && this.comments.length > 0)
             return this.comments.length;
         else

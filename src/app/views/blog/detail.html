@@ -1,8 +1,6 @@
 <section>
     <h1 class="title">
-    detail {{post.title}} 
-    <i class="fa fa-pencil"></i>
-    <i class="fa fa-trash"></i>
+    detail {{post.title}}     
     </h1>
     <p class="meta-data">
         {{post.createdDate | date: 'yMMMMd'}}         
@@ -11,14 +9,15 @@
 </section>
 <section>
     <h3>Comments</h3>
-    <ol *ng-for="#comment of post.comments | orderby: 'createdDate': 'desc'">
+    <ol *ng-for="#comment of post.comments | orderby: 'createdDate': 'asc'">
         <li class="comment">
             <header>
                 <img src="http://placecage.com/56/56" alt="#post.name" class="avatar" />
                 <span>{{comment.name}} says</span>
                 <span>{{comment.createdDate | date: 'yMMMMd'}}
                 <i class="fa fa-trash" (click)="deleteComment(comment.id)"></i>
-            </header>    
+            </header>
+            <div>{{comment.body}}</div>    
         </li>
     </ol>
 </section>
