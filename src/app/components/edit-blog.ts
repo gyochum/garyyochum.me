@@ -1,4 +1,4 @@
-import { Component, FormBuilder, Validators, FORM_DIRECTIVES, AbstractControl, ControlGroup } from 'angular2/angular2';
+import { Component, FormBuilder, Validators, FORM_DIRECTIVES, AbstractControl, ControlGroup, Input } from 'angular2/angular2';
 import {RouteParams} from 'angular2/router';
 import { BlogPostService } from '../services/concrete/blogService';
 import { BlogPost } from '../models/blogPost';
@@ -7,40 +7,43 @@ import { BlogPost } from '../models/blogPost';
     selector: 'edit-blog',
     templateUrl: './app/views/bighitter/blog/edit.html',
     providers: [BlogPost, BlogPostService],
+    inputs: ['post', 'blogFormControlGroup'],
     directives: [ FORM_DIRECTIVES ]
 })
 
 export class EditBlogPostComponent{
     constructor(params: RouteParams, fb: FormBuilder, svc: BlogPostService){
-        var id: string = params.get('id');
-        this.service =  svc;
-        
-        this.service.getBlogPost(id).subscribe((response: BlogPost) => {
-            console.log(response);
-            this.blogForm = fb.group({
-                title: [response.title, Validators.required],
-                url: [response.url, Validators.required],
-                preview: [response.preview, Validators.required],
-                body: [response.body, Validators.required],
-                isActive: [response.isActive]
-            });
+        this.service = svc;
+        this.post = new BlogPost();
+        this.blogFormControlGroup = fb.group({
+           id: "",
+           title: ["", Validators.required],
+           url: ["", Validators.required],
+           preview: ["", Validators.required],
+           body: ["", Validators.required],
         });
         
+        this.titleValidationControl = this.blogFormControlGroup.controls["title"];
+        this.urlValidationControl = this.blogFormControlGroup.controls["url"];
+        this.previewValidationControl = this.blogFormControlGroup.controls["preview"];
+        this.bodyValidationControl = this.blogFormControlGroup.controls["body"];
         
-        this.title = this.blogForm.controls["title"];        
-        this.url = this.blogForm.controls["url"];
-        this.preview = this.blogForm.controls["preview"];
-        this.body = this.blogForm.controls["body"];
+        var id: string = params.get("id");
+        this.service.getBlogPost(id).subscribe((response: BlogPost) => {
+           this.post = response;
+           console.log(this.post);
+        });
     }
     
     update(){
-        
+        //console.log(this.blogFormControlGroup.value);
     }
     
-    blogForm:ControlGroup;
-    title: AbstractControl;
-    url: AbstractControl;
-    preview: AbstractControl;
-    body: AbstractControl;
-    service: BlogPostService;
+    public post: BlogPost;
+    public blogFormControlGroup: ControlGroup;
+    public titleValidationControl: AbstractControl;
+    public urlValidationControl: AbstractControl;
+    public previewValidationControl: AbstractControl;
+    public bodyValidationControl: AbstractControl;
+    private service: BlogPostService;
 }

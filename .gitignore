@@ -3,6 +3,8 @@ node_modules
 src/libs
 src/definitions
 *.log
+npm-debug.log
+npm-debug.log.*
 
 # all generated js
 src/app/**/*.js

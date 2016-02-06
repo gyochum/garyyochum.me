@@ -55,8 +55,9 @@ export class BlogPostService extends BaseService{
                        result.id = post._id;
                        result.url = post.url;
                        result.title = post.title;
+                       result.preview = post.preview;
 						result.body = post.body;
-						result.isActive = post.active;
+						result.isActive = post.active == undefined? false:post.active;
 						result.createdDate = new Date(post.created);
 						result.tags = post.tags;
                         result.comments = this.mapComments(post.comments);
