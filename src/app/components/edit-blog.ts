@@ -1,5 +1,5 @@
 import { Component, FormBuilder, Validators, FORM_DIRECTIVES, AbstractControl, ControlGroup, Input } from 'angular2/angular2';
-import {RouteParams} from 'angular2/router';
+import {RouteParams, Router} from 'angular2/router';
 import { BlogPostService } from '../services/concrete/blogService';
 import { BlogPost } from '../models/blogPost';
 
@@ -12,11 +12,13 @@ import { BlogPost } from '../models/blogPost';
 })
 
 export class EditBlogPostComponent{
-    constructor(params: RouteParams, fb: FormBuilder, svc: BlogPostService){
+    constructor(params: RouteParams, fb: FormBuilder, svc: BlogPostService, r: Router){
+        this.router = r;
         this.service = svc;
         this.post = new BlogPost();
         this.blogFormControlGroup = fb.group({
            id: "",
+           isActive: false,
            title: ["", Validators.required],
            url: ["", Validators.required],
            preview: ["", Validators.required],
@@ -31,12 +33,26 @@ export class EditBlogPostComponent{
         var id: string = params.get("id");
         this.service.getBlogPost(id).subscribe((response: BlogPost) => {
            this.post = response;
-           console.log(this.post);
         });
     }
     
     update(){
-        //console.log(this.blogFormControlGroup.value);
+      if(this.blogFormControlGroup.valid){
+        var post = new BlogPost();
+        post.id = this.blogFormControlGroup.value.id;
+        post.isActive = this.blogFormControlGroup.value.isActive;
+        post.title = this.blogFormControlGroup.value.title;
+        post.url = this.blogFormControlGroup.value.url;
+        post.preview = this.blogFormControlGroup.value.preview;
+        post.body = this.blogFormControlGroup.value.body;
+            
+        this.service.update(post)
+            .subscribe(response => {
+                console.log(response);
+                toastr.success('post updated successfully.');
+                this.router.navigate(['Blogs']);
+            });
+      }  
     }
     
     public post: BlogPost;
@@ -45,5 +61,7 @@ export class EditBlogPostComponent{
     public urlValidationControl: AbstractControl;
     public previewValidationControl: AbstractControl;
     public bodyValidationControl: AbstractControl;
+    
+    private router: Router;
     private service: BlogPostService;
 }

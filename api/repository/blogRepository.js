@@ -40,7 +40,7 @@ exports.save = function(request, response, next){
 	var post = request.body;
     
     model.create({
-        active: post.isEnabled,
+        active: post.isActive,
         title: post.title,
         url: post.url,
         preview: post.preview,
@@ -54,7 +54,31 @@ exports.save = function(request, response, next){
 }
 
 exports.update = function(request, response, next){
- //todo: add code here   
+ var result = {};
+ var id = request.params.id;
+ var post = request.body;
+ 
+ if(post){
+     model.findOneAndUpdate({
+            _id: id
+        }, {
+            active: post.isActive,
+            title: post.title,
+            url: post.url,
+            preview: post.preview,
+            body: post.body            
+        },
+        {            
+            new: true
+        }, function(error, post){
+            result["error"] = error;
+            result["post"] = post;
+                
+            response.send(result);
+        })
+ }
+ 
+ return result;
 }
 
 exports.delete = function(request, response, next){

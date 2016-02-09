@@ -72,6 +72,11 @@ export class BlogPostService extends BaseService{
                         .map((response: Response) => response.json());
     }
     
+    update(post: BlogPost){                       
+        return this.http.put('http://localhost:3000/api/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
+                        .map((response: Response) => response.json());
+    }
+    
     saveComment(comment: Comment){
         return this.http.post('http://localhost:3000/api/comments', JSON.stringify(comment), { headers: this.headers })
                         .map(r => {

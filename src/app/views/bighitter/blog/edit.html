@@ -2,8 +2,7 @@
     <h1 class="title">Manage Your Blog Posts</h1>
     <form [ng-form-model]="blogFormControlGroup" (submit)="update()" novalidate>
         <input type="hidden" name="id" ng-control="id" [ng-model]="post.id" />
-        
-        
+        <input ng-control="isActive" [ng-model]="post.isActive" type="checkbox" /> <span class="label">Active?</span>        
         <label for="title">
             Title <span>*</span>
         </label>

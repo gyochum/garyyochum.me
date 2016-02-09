@@ -19,8 +19,7 @@ export class SaveBlogPostComponent{
             body: ["", Validators.required],
             isActive: [false]
         });
-        this.title = this.blogForm.controls["title"];
-        console.log(this.title);
+        this.title = this.blogForm.controls["title"];        
         this.url = this.blogForm.controls["url"];
         this.preview = this.blogForm.controls["preview"];
         this.body = this.blogForm.controls["body"];
@@ -28,7 +27,7 @@ export class SaveBlogPostComponent{
     
     save(){
         if(this.blogForm.valid){
-          /*var post = new BlogPost();
+          var post = new BlogPost();
             post.isActive = this.blogForm.value.isActive;
             post.title = this.blogForm.value.title;
             post.url = this.blogForm.value.url;
@@ -38,8 +37,7 @@ export class SaveBlogPostComponent{
             this.service.save(post)
                 .subscribe(response => {
                     console.log(response);
-                });*/
-                console.log("valid");  
+                });                  
         }
         
     }
