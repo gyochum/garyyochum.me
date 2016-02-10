@@ -82,7 +82,18 @@ exports.update = function(request, response, next){
 }
 
 exports.delete = function(request, response, next){
- //todo: add code here   
+ var id = request.params.id;
+ 
+ model.findOneAndRemove({
+     _id: id
+ }, {
+     passRawResult: true
+ }, function(error, post, raw){
+     if(error)
+        return next(error);
+        
+    return response.send(raw);
+ })
 }
 
 exports.addComment = function(request, response, next){
@@ -117,4 +128,9 @@ exports.addComment = function(request, response, next){
             response.send(post.comments);
         })
     }    
+        
+}
+
+exports.updateComment = function(request, response, next){
+        
 }

@@ -6,6 +6,7 @@ var commentSchema = new Schema({
     name: String,
 	email: String,
 	body: String,
+    isEnabled: Boolean,
 	created: {type: Date, default: Date.now}
 });
 

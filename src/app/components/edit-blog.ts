@@ -48,7 +48,6 @@ export class EditBlogPostComponent{
             
         this.service.update(post)
             .subscribe(response => {
-                console.log(response);
                 toastr.success('post updated successfully.');
                 this.router.navigate(['Blogs']);
             });

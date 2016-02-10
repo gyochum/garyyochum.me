@@ -28,7 +28,9 @@ api.post('/api/blogs', blogRepository.save);
 api.get('/api/blogs/:id', blogRepository.detail);
 api.put('/api/blogs/:id', blogRepository.update);
 api.delete('/api/blogs/:id', blogRepository.delete);
+
 api.post('/api/comments', blogRepository.addComment);
+api.put('/api/comments/:id', blogRepository.updateComment);
 
 //start server
 api.listen(3000);
