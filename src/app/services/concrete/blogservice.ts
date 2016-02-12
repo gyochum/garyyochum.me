@@ -69,12 +69,36 @@ export class BlogPostService extends BaseService{
     
     save(post: BlogPost){                       
         return this.http.post('http://localhost:3000/api/blogs', JSON.stringify(post), { headers: this.headers })
-                        .map((response: Response) => response.json());
+                        .map((response: Response) => {return response.text()});
     }
     
     update(post: BlogPost){                       
         return this.http.put('http://localhost:3000/api/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => response.json());
+    }
+    
+    delete(id: string){
+        return this.http.delete('http://localhost:3000/api/blogs/' + id, { headers: this.headers})
+                .map((response: Response) => {return response.json();})
+                .map((response: any) => {
+                   let result: BlogPost = new BlogPost();
+                   
+                   if (response){
+                       var post = response.value;
+                       
+                       result.id = post._id;
+                       result.url = post.url;
+                       result.title = post.title;
+                       result.preview = post.preview;
+					   result.body = post.body;
+					   result.isActive = post.active == undefined? false:post.active;
+					   result.createdDate = new Date(post.created);
+					   result.tags = post.tags;
+                       result.comments = this.mapComments(post.comments);
+                   }
+                   
+                   return result; 
+                });                        
     }
     
     saveComment(comment: Comment){

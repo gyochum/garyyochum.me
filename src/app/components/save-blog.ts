@@ -1,4 +1,5 @@
 import { Component, FormBuilder, Validators, FORM_DIRECTIVES, AbstractControl, ControlGroup } from 'angular2/angular2';
+import {Router} from 'angular2/router';
 import { BlogPostService } from '../services/concrete/blogService';
 import { BlogPost } from '../models/blogPost';
 
@@ -10,7 +11,8 @@ import { BlogPost } from '../models/blogPost';
 })
 
 export class SaveBlogPostComponent{        
-    constructor(fb: FormBuilder, svc: BlogPostService){
+    constructor(fb: FormBuilder, svc: BlogPostService, r: Router){
+        this.router = r;
         this.service =  svc;
         this.blogForm = fb.group({
             title: ["", Validators.required],
@@ -36,7 +38,10 @@ export class SaveBlogPostComponent{
             
             this.service.save(post)
                 .subscribe(response => {
-                    console.log(response);
+                    if (response === 'saved'){
+                        toastr.success('post saved successfully.');
+                        this.router.navigate(['Blogs']);    
+                    }                    
                 });                  
         }
         
@@ -47,5 +52,7 @@ export class SaveBlogPostComponent{
     url: AbstractControl;
     preview: AbstractControl;
     body: AbstractControl;
-    service: BlogPostService;
+    
+    private router: Router;
+    private service: BlogPostService;
 }

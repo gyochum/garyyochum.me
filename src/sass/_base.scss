@@ -66,6 +66,14 @@ img{
     line-height: 1.2;
 }
 
+.green{
+    @include font-color(green);
+}
+
+.red{
+    @include font-color(red);
+}
+
 @media only screen and (max-width: 768px){
     
     .container

@@ -11,13 +11,28 @@ import {BlogPostService} from '../services/concrete/blogservice';
 })
 
 export class BlogPostComponent { 
-    constructor(service: BlogPostService){        
-        service.getActivePosts()
-            .subscribe(response => {
-                this.posts = response;
+    constructor(svc: BlogPostService){ 
+        this.service = svc;
                 
+        this.service.getActivePosts()
+            .subscribe(response => {
+                this.posts = response;                
             });
     }
     
-    public posts:Array<BlogPost>;    
+    delete(id: string){
+        this.service.delete(id).subscribe((response: BlogPost) => {
+            var index = this.posts.map((p: BlogPost) => {
+              return p.id;  
+            }).indexOf(response.id);
+            
+            if(index > -1){
+                this.posts.splice(index, 1);
+                toastr.success('post deleted successfully.');
+            }
+        })
+    }
+    
+    public posts:Array<BlogPost>;
+    private service:BlogPostService;    
 }

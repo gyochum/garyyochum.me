@@ -22,3 +22,7 @@
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+@mixin font-color($color){
+    color: $color;
+}
