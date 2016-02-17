@@ -21,6 +21,7 @@ global.db = mongoose.createConnection(uri);
 
 //get repository modules
 var blogRepository = require('./repository/blogRepository');
+var oauthRepository = require('./repository/oauthRepository');
 
 //routes
 api.get('/api/blogs', blogRepository.all);
@@ -31,6 +32,9 @@ api.delete('/api/blogs/:id', blogRepository.delete);
 
 api.post('/api/comments', blogRepository.addComment);
 api.put('/api/comments/:id', blogRepository.updateComment);
+
+api.get('/api/authorize', oauthRepository.authorize);
+api.get('/api/authenticate', oauthRepository.authenticate);
 
 //start server
 api.listen(3000);

@@ -24,6 +24,7 @@
     "express": "^4.13.3",
     "mongodb": "^2.1.2",
     "mongoose": "^4.2.9",
+    "request": "^2.69.0",
     "systemjs": "^0.19.6"
   },
   "devDependencies": {
