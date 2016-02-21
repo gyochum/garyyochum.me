@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var express = require('express');
+var settings = require('./settings');
 var api = express();
 
 api.use(bodyParser.urlencoded({ extended: false }));

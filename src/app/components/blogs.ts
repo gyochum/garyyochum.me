@@ -1,5 +1,5 @@
 import { Component, View, NgFor, NgIf } from 'angular2/angular2';
-import { RouterLink } from 'angular2/router';
+import { RouterLink, RouteParams } from 'angular2/router';
 import {BlogPost} from '../models/blogpost';
 import {BlogPostService} from '../services/concrete/blogservice';
 
@@ -11,7 +11,9 @@ import {BlogPostService} from '../services/concrete/blogservice';
 })
 
 export class BlogPostComponent { 
-    constructor(svc: BlogPostService){ 
+    constructor(data: RouteParams, svc: BlogPostService){
+        var token = data.get('qs');
+         
         this.service = svc;
                 
         this.service.getActivePosts()

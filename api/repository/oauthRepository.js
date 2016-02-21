@@ -1,6 +1,16 @@
 var settings = require('../settings');
 var request = require('request');
 var querystring = require('querystring');
+var jwt = require('jsonwebtoken');
+
+exports.authorize = function(req, response, next) {
+    response.redirect(settings.oauth.providers.github.authorizeUrl + '?' + querystring.stringify({
+            client_id: settings.oauth.providers.github.clientId,
+            redirect_uri: settings.oauth.providers.github.accessTokenUrl,
+            scope: settings.oauth.providers.github.scope
+        })
+    );
+}
 
 exports.authenticate = function(req, response, next){
     var code = req.query.code;
@@ -8,11 +18,11 @@ exports.authenticate = function(req, response, next){
     if(code){
         request({
             method: 'POST', 
-            url: settings.social.github.authenticateUrl,
+            url: settings.oauth.providers.github.authenticateUrl,
             json: true,
             body: {
-                client_id: settings.social.github.clientId,
-                client_secret: settings.social.github.clientSecret,
+                client_id: settings.oauth.providers.github.clientId,
+                client_secret: settings.oauth.providers.github.clientSecret,
                 code: code                
             }
         }, function(error, r, body){            
@@ -27,30 +37,26 @@ exports.authenticate = function(req, response, next){
                     },
                     url: 'https://api.github.com/user'
                 }, function(err, r, body){
-                   response.send(r); 
+                   var profile = {
+                       id: r.body.id,
+                       token: token,
+                       login: r.body.login ,
+                       avatar: r.body.avatar_url 
+                   };
+                   
+                   //create jwt
+                   var token = jwt.sign(profile, settings.oauth.secret, {
+                      expiresIn: 7200 
+                   });
+                    
+                   response.writeHead(302, {
+                    'Location': 'http://127.0.0.1:8080/src/#/blogs?token=' + token   
+                   });
+                   response.end();
                 });
+                
+                
             }
         });
     }
-}
-
-exports.authorize = function(req, response, next) {
-    response.redirect(settings.social.github.authorizeUrl + '?' + querystring.stringify({
-            client_id: settings.social.github.clientId,
-            redirect_uri: settings.social.github.accessTokenUrl
-        })
-    );
-    
-    
-    /*request({
-        method: 'GET',
-        url: settings.social.github.authorizeUrl,
-        qs: {
-            client_id: settings.social.github.clientId,
-            redirect_uri: settings.social.github.authorizeCodeUrl
-        },
-        followRedirect: true
-    }, function(e, r, b){
-        console.log(b);
-    });*/
 }

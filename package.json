@@ -5,7 +5,7 @@
   "main": "startup.js",
   "scripts": {
     "tsc": "tsc -p src -w",
-    "live": "live-server --open=src",
+    "live": "live-server --port=8080 --host=localhost --open=src",
     "api": "node-dev ./api/index.js",
     "sass": "node-sass --watch ./src/sass/ --output ./src/assets/css",
     "start": "concurrent \"npm run tsc\" \"npm run live\" \"npm run api\" \"npm run sass\" "
@@ -22,6 +22,7 @@
     "angular2": "^2.0.0-alpha.46",
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
+    "jsonwebtoken": "^5.7.0",
     "mongodb": "^2.1.2",
     "mongoose": "^4.2.9",
     "request": "^2.69.0",

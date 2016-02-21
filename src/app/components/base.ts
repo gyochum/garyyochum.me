@@ -4,6 +4,7 @@ import { BlogPostComponent } from '../components/blogs';
 import { BlogPostDetailComponent } from '../components/blog'; 
 import { SaveBlogPostComponent } from '../components/save-blog';
 import {EditBlogPostComponent} from '../components/edit-blog';
+import {AuthorizeComponent} from '../components/authorize';
 
 @Component({
 	selector: 'app',
@@ -16,11 +17,14 @@ import {EditBlogPostComponent} from '../components/edit-blog';
     { path: '/blogs', as: 'Blogs', component: BlogPostComponent },
     { path: '/blog/:id', as: 'BlogDetail', component: BlogPostDetailComponent },
     { path: '/blog/save', as: 'SaveBlogs', component: SaveBlogPostComponent },
-    { path: '/blog/edit/:id', as: 'EditBlog', component: EditBlogPostComponent }
+    { path: '/blog/edit/:id', as: 'EditBlog', component: EditBlogPostComponent },
+    { path: '/authorize', as: 'Authorize', component: AuthorizeComponent }    
 ])
 
 export class App{
     title: string;
+    isLoggedIn:boolean;
+    
     constructor(){
         this.title = "Gary's Super Fun Blog";
     }
