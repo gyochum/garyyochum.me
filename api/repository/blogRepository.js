@@ -1,3 +1,5 @@
+var jwt = require('jsonwebtoken');
+var settings = require('../settings');
 var model = require('../models/blog');
 var Comment = require('../models/comment');
 var ObjectId = require('mongoose').Types.ObjectId;
@@ -36,7 +38,7 @@ exports.detail = function(request, response, next){
     });	
 }
 
-exports.save = function(request, response, next){
+exports.save = function(request, response, next){    
 	var post = request.body;
     
     model.create({

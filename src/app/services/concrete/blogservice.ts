@@ -3,6 +3,7 @@ import {Http, Response, Headers} from 'angular2/http';
 import {BlogPost} from '../../models/blogpost';
 import {Comment} from '../../models/comment';
 import {BaseService} from './baseService';
+import {Storage} from '../../utilities/storage';
 
 export class BlogPostService extends BaseService{
 	public headers:Headers;
@@ -67,12 +68,26 @@ export class BlogPostService extends BaseService{
                 });
     }
     
-    save(post: BlogPost){                       
+    save(post: BlogPost){
+        var token = Storage.get<string>("token");
+        console.log(token);
+        
+        if(token)
+            this.headers.append("x-access-token", token);
+        
         return this.http.post('http://localhost:3000/api/blogs', JSON.stringify(post), { headers: this.headers })
-                        .map((response: Response) => {return response.text()});
+                        .map((response: Response) => {
+                            console.log(response);
+                            return response.text()
+                        });
     }
     
-    update(post: BlogPost){                       
+    update(post: BlogPost){ 
+        var token = Storage.get<string>("token");
+                
+        if(token)
+            this.headers.set("x-access-token", token);
+                                  
         return this.http.put('http://localhost:3000/api/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => response.json());
     }

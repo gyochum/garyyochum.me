@@ -8,4 +8,15 @@ export class Storage{
        return result;
     }
     
+    static set<T>(key: string, model:T){
+        var data = JSON.stringify(model);
+        
+        localStorage.setItem(key, data);
+    }
+    
+    static remove(key: string){
+        if(localStorage.getItem(key) !== null)
+            localStorage.removeItem(key);
+    }
+    
 }

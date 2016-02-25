@@ -2,6 +2,7 @@ import { Component, View, NgFor, NgIf } from 'angular2/angular2';
 import { RouterLink, RouteParams } from 'angular2/router';
 import {BlogPost} from '../models/blogpost';
 import {BlogPostService} from '../services/concrete/blogservice';
+import {Storage} from '../utilities/storage';
 
 @Component({
     selector: 'blogs',
@@ -12,8 +13,12 @@ import {BlogPostService} from '../services/concrete/blogservice';
 
 export class BlogPostComponent { 
     constructor(data: RouteParams, svc: BlogPostService){
-        var token = data.get('qs');
-         
+        var token = data.get('token');
+        
+        if(token)
+            Storage.set('token', token);
+        
+        this.isLoggedIn = Storage.get<string>('token') !== null;         
         this.service = svc;
                 
         this.service.getActivePosts()
@@ -36,5 +41,6 @@ export class BlogPostComponent {
     }
     
     public posts:Array<BlogPost>;
+    public isLoggedIn: boolean = false;
     private service:BlogPostService;    
 }

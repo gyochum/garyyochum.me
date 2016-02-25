@@ -2,10 +2,10 @@
 <article *ng-for="#post of posts">    
     <h1 class="title">
         <a [router-link] = "['BlogDetail', { 'id': post.url }]">{{post.title}}</a> 
-        <a [router-link] = "['EditBlog', {'id': post.url}]" class="fa fa-pencil"></a>  
-        <i class="fa fa-trash" (click)="delete(post.id)"></i> 
-        <i class="fa fa-check-circle-o green" *ng-if="post.isActive" title="active"></i>
-        <i class="fa fa-times-circle-o red" *ng-if="!post.isActive" title="inactive"></i>    
+        <a [router-link] = "['EditBlog', {'id': post.url}]" *ng-if="isLoggedIn" class="fa fa-pencil"></a>  
+        <i class="fa fa-trash" *ng-if="isLoggedIn" (click)="delete(post.id)"></i> 
+        <i class="fa fa-check-circle-o green" *ng-if="post.isActive && isLoggedIn" title="active"></i>
+        <i class="fa fa-times-circle-o red" *ng-if="!post.isActive && isLoggedIn" title="inactive"></i>    
     </h1>
     <p class="meta-data">
         {{post.createdDate | date: 'yMMMMd'}} - 
