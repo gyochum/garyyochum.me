@@ -22,6 +22,7 @@
     "angular2": "^2.0.0-alpha.46",
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
+    "express-jwt": "^3.3.0",
     "jsonwebtoken": "^5.7.0",
     "mongodb": "^2.1.2",
     "mongoose": "^4.2.9",

@@ -73,7 +73,7 @@ export class BlogPostService extends BaseService{
         console.log(token);
         
         if(token)
-            this.headers.append("x-access-token", token);
+            this.headers.append("Authorization", 'Bearer ' + token);
         
         return this.http.post('http://localhost:3000/api/blogs', JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => {
@@ -86,13 +86,18 @@ export class BlogPostService extends BaseService{
         var token = Storage.get<string>("token");
                 
         if(token)
-            this.headers.set("x-access-token", token);
+            this.headers.append("Authorization", 'Bearer ' + token);
                                   
         return this.http.put('http://localhost:3000/api/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => response.json());
     }
     
     delete(id: string){
+        var token = Storage.get<string>("token");
+                
+        if(token)
+            this.headers.append("Authorization", 'Bearer ' + token);
+        
         return this.http.delete('http://localhost:3000/api/blogs/' + id, { headers: this.headers})
                 .map((response: Response) => {return response.json();})
                 .map((response: any) => {

@@ -8,6 +8,9 @@
             This is my blog about stuff....and things.  I will post about vegan stuff, tech stuff, and music stuff.  
             I will also post about stuff not related to the previous three items I just mentioned.
         </div>   
+        <div class="links">
+            <a *ng-if="isLoggedIn" (click)="logout()">log out</a>    
+        </div>
     </header>
     <div class="site-body">
 	   <router-outlet></router-outlet>    
