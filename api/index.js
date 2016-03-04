@@ -19,10 +19,16 @@ api.use(function(request, response, next){
 });
 
 //set up middleware to verify jwt
-api.use(eJwt({secret: settings.oauth.secret}).unless({
-    path: [
-        { url: '/api/blogs', methods: ['GET']}        
-    ]    
+api.use(eJwt({secret: settings.oauth.secret}).unless(function(request){
+   //blog routes
+   return request.path.indexOf('/api/blogs') > -1 && request.method === 'GET';
+   
+   //blog comment routes
+   return request.path.indexOf('/api/comments') > -1 && request.method === 'POST';
+   
+   //oauth routes
+   return request.path.indexOf('/api/authorize') > -1 && request.method === 'GET';
+   return request.path.indexOf('/api/authenticate') > -1 && request.method === 'GET';
 }));
 
 //open db connection
@@ -49,8 +55,10 @@ api.put('/api/comments/:id', blogRepository.updateComment);
 //set up error handling function
 api.use(function(error, request, response, next){
    console.log(error.name);
-   response.status(500).send('error!!'); 
+   
+   if(error.name === 'UnauthorizedError')
+    response.status(403).json({success: false, message: 'you are not authorized to perform this operation'}); 
 });
 
 //start server
-api.listen(3000);
+api.listen(8080);

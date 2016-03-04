@@ -66,6 +66,49 @@ img{
     line-height: 1.2;
 }
 
+.social-icons{
+    padding: 10px;
+    
+    ul{
+        list-style-type: none;
+        text-align: center;
+        
+        li{
+            display: inline-block;
+            margin: 0 5px;
+            
+            .fa{
+                font-size: 2em;
+                transition: ease 0.5s color;
+                
+                &.fa-twitter-square{
+                    &:hover{
+                        color: $twitter;    
+                    }                    
+                }
+                
+                &.fa-facebook-square{
+                    &:hover{
+                        color: $facebook;    
+                    }                    
+                }
+                
+                &.fa-instagram{
+                    &:hover{
+                        color: $instagram;    
+                    }                    
+                }
+                
+                &.fa-github-square{
+                    &:hover{
+                        color: $github;    
+                    }                    
+                }
+            }
+        }
+    }
+}
+
 .green{
     @include font-color(green);
 }

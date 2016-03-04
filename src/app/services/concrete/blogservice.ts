@@ -16,7 +16,7 @@ export class BlogPostService extends BaseService{
 	}
 	
 	getActivePosts(){
-		return this.http.get('http://localhost:3000/api/blogs')
+		return this.http.get('http://localhost:8080/api/blogs')
 			.map(r => {
 				return (<Response>r).json();
 			})
@@ -43,7 +43,7 @@ export class BlogPostService extends BaseService{
 	}
     
     getBlogPost(id: string){
-        return this.http.get('http://localhost:3000/api/blogs/' + id)
+        return this.http.get('http://localhost:8080/api/blogs/' + id)
                 .map(r => {
                     return (<Response>r).json();
                 })
@@ -75,9 +75,9 @@ export class BlogPostService extends BaseService{
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token);
         
-        return this.http.post('http://localhost:3000/api/blogs', JSON.stringify(post), { headers: this.headers })
+        return this.http.post('http://localhost:8080/api/blogs', JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => {
-                            console.log(response);
+                            console.log('response: '  + response);
                             return response.text()
                         });
     }

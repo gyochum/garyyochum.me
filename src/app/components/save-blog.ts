@@ -2,6 +2,7 @@ import { Component, FormBuilder, Validators, FORM_DIRECTIVES, AbstractControl, C
 import {Router} from 'angular2/router';
 import { BlogPostService } from '../services/concrete/blogService';
 import { BlogPost } from '../models/blogPost';
+//import {CKEditor} from '../../../node_modules/ng2-ckeditor/ckeditor';
 
 @Component({
     selector: 'save-blog',
@@ -12,6 +13,7 @@ import { BlogPost } from '../models/blogPost';
 
 export class SaveBlogPostComponent{        
     constructor(fb: FormBuilder, svc: BlogPostService, r: Router){
+                
         this.router = r;
         this.service =  svc;
         this.blogForm = fb.group({

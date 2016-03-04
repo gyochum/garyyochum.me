@@ -11,6 +11,14 @@
         <div class="links">
             <a *ng-if="isLoggedIn" (click)="logout()">log out</a>    
         </div>
+        <div class="social-icons">
+            <ul>
+                <li><a href="https://www.facebook.com/gary.yochum.1" class="fa fa-facebook-square" target="_blank"></a>
+                <li><a href="https://twitter.com/gyochum" class="fa fa-twitter-square twitter" target="_blank"></a></li>
+                <li><a href="https://www.instagram.com/garyyochum/" class="fa fa-instagram" target="_blank"></a></li>
+                <li><a href="https://www.github.com/gyochum/" class="fa fa-github-square" target="_blank"></a></li>
+            </ul>
+        </div>
     </header>
     <div class="site-body">
 	   <router-outlet></router-outlet>    
