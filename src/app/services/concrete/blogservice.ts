@@ -69,8 +69,7 @@ export class BlogPostService extends BaseService{
     }
     
     save(post: BlogPost){
-        var token = Storage.get<string>("token");
-        console.log(token);
+        var token = Storage.get<string>("token");        
         
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token);

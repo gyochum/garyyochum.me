@@ -3,13 +3,19 @@ var request = require('request');
 var querystring = require('querystring');
 var jwt = require('jsonwebtoken');
 
-exports.authorize = function(req, response, next) {
-    response.redirect(settings.oauth.providers.github.authorizeUrl + '?' + querystring.stringify({
-            client_id: settings.oauth.providers.github.clientId,
-            redirect_uri: settings.oauth.providers.github.accessTokenUrl,
-            scope: settings.oauth.providers.github.scope
-        })
-    );
+exports.settings = function(request, response, next){
+    var providers = settings.oauth.providers;
+    
+    response.send({
+      providers: {
+          github: {
+              authorizeUrl: providers.github.authorizeUrl,
+              clientId: providers.github.clientId,
+              redirectUrl: providers.github.accessTokenUrl,
+              scope: providers.github.scope
+          }
+      }  
+    });
 }
 
 exports.authenticate = function(req, response, next){

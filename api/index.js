@@ -20,15 +20,19 @@ api.use(function(request, response, next){
 
 //set up middleware to verify jwt
 api.use(eJwt({secret: settings.oauth.secret}).unless(function(request){
+   var result = false;
+   
    //blog routes
-   return request.path.indexOf('/api/blogs') > -1 && request.method === 'GET';
+   result = request.path.indexOf('/api/blogs') > -1 && request.method === 'GET';
    
    //blog comment routes
-   return request.path.indexOf('/api/comments') > -1 && request.method === 'POST';
+   result |= request.path.indexOf('/api/comments') > -1 && request.method === 'POST';
    
    //oauth routes
-   return request.path.indexOf('/api/authorize') > -1 && request.method === 'GET';
-   return request.path.indexOf('/api/authenticate') > -1 && request.method === 'GET';
+   result |= request.path.indexOf('/api/settings') > -1 && request.method === 'GET';
+   result |= request.path.indexOf('/api/authenticate') > -1 && request.method === 'GET';
+   
+   return result;
 }));
 
 //open db connection
@@ -43,8 +47,8 @@ var oauthRepository = require('./repository/oauthRepository');
 api.get('/api/blogs', blogRepository.all);
 api.get('/api/blogs/:id', blogRepository.detail);
 api.post('/api/comments', blogRepository.addComment);
-api.get('/api/authorize', oauthRepository.authorize);
 api.get('/api/authenticate', oauthRepository.authenticate);
+api.get('/api/settings', oauthRepository.settings);
 
 //admin routes
 api.post('/api/blogs', blogRepository.save);
@@ -54,8 +58,6 @@ api.put('/api/comments/:id', blogRepository.updateComment);
 
 //set up error handling function
 api.use(function(error, request, response, next){
-   console.log(error.name);
-   
    if(error.name === 'UnauthorizedError')
     response.status(403).json({success: false, message: 'you are not authorized to perform this operation'}); 
 });
