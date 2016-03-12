@@ -3,6 +3,7 @@ import {ROUTER_PROVIDERS, ROUTER_BINDINGS, LocationStrategy, HashLocationStrateg
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {BlogPostService} from './services/concrete/blogservice';
 import {BaseService} from './services/concrete/baseservice';
+import { AuthService } from './services/authService';
 import { App } from './components/base'; 
 
 var injectables = [
@@ -10,7 +11,8 @@ var injectables = [
   ROUTER_BINDINGS,
   HTTP_PROVIDERS,
   BaseService,
-  BlogPostService
+  BlogPostService,
+  AuthService
 ];
 
 bootstrap(App, [injectables, provide(LocationStrategy, {useClass: HashLocationStrategy})]);

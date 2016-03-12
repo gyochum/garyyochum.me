@@ -6,13 +6,9 @@ import {BaseService} from './baseService';
 import {Storage} from '../../utilities/storage';
 
 export class BlogPostService extends BaseService{
-	public headers:Headers;
     
 	constructor(@Inject(Http) public http:Http){		        
         super();
-        
-        this.headers = new Headers();
-        this.headers.append("Content-Type", "application/json");
 	}
 	
 	getActivePosts(){

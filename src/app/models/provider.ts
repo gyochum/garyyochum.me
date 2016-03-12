@@ -7,7 +7,7 @@ export class Provider{
     clientId: string;
     scope: string;
     
-    fullAuthorizationUrl(): string{
+    public fullAuthorizationUrl(): string{
         return this.authorizationUrl + '?client_id=' + this.clientId + '&redirect_uri=' + this.redirectUrl + '&scope=' + this.scope;
     }
     

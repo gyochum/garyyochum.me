@@ -1,7 +1,15 @@
+import { Headers } from 'angular2/http';
 import {Storage} from '../../utilities/storage'
 
 export class BaseService{
 	
+    public headers:Headers;
+    
+    constructor(){
+        this.headers = new Headers();
+        this.headers.append("Content-Type", "application/json");
+    }
+    
 	logError(error: any){
 		console.log('ERROR: ' + error);
 	}
