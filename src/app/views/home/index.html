@@ -1,4 +1,7 @@
-<div class="container">
+<div class="login" *ng-if="!isLoggedIn">
+    <a [router-link]="['Authorize']" class="fa fa-sign-in"></a>
+</div>
+<div class="container">    
     <header class="site-header">
         <div class="avatar">
             <a [router-link]="['Blogs']"><img src="/src/assets/images/avatar.jpg" alt="gary" /></a>

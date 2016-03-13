@@ -15,6 +15,7 @@ export class AuthorizeComponent{
     public github:Provider;
     
     constructor(public service:AuthService){
+        this.github = new Provider();
         
         service.getOAuthSettings()
             .subscribe((data:Provider) => {

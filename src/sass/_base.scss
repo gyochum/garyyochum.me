@@ -61,6 +61,21 @@ img{
     }
 }
 
+.login{
+    top: 0;
+    right: 0;
+    float: right;
+    width: 1px;
+    height: 20px;    
+    color: #ccc;    
+    font-size: 1.25em;
+    transition: ease 0.5s width;
+    
+    &:hover{
+        width: 20px;                
+    }
+}
+
 .text-block{
     @include word-wrap();
     line-height: 1.2;
@@ -124,6 +139,10 @@ img{
     .site-body{
         width: 100%;
         float: none;
+    }
+    
+    .login{
+        display: none;
     }
     
 }

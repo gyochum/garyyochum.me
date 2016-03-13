@@ -58,6 +58,7 @@ api.put('/api/comments/:id', blogRepository.updateComment);
 
 //set up error handling function
 api.use(function(error, request, response, next){
+    console.log(error);
    if(error.name === 'UnauthorizedError')
     response.status(403).json({success: false, message: 'you are not authorized to perform this operation'}); 
 });

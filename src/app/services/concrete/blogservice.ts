@@ -83,7 +83,7 @@ export class BlogPostService extends BaseService{
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token);
                                   
-        return this.http.put('http://localhost:3000/api/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
+        return this.http.put('http://localhost:8080/api/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => response.json());
     }
     
@@ -93,7 +93,7 @@ export class BlogPostService extends BaseService{
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token);
         
-        return this.http.delete('http://localhost:3000/api/blogs/' + id, { headers: this.headers})
+        return this.http.delete('http://localhost:8080/api/blogs/' + id, { headers: this.headers})
                 .map((response: Response) => {return response.json();})
                 .map((response: any) => {
                    let result: BlogPost = new BlogPost();
@@ -117,7 +117,7 @@ export class BlogPostService extends BaseService{
     }
     
     saveComment(comment: Comment){
-        return this.http.post('http://localhost:3000/api/comments', JSON.stringify(comment), { headers: this.headers })
+        return this.http.post('http://localhost:8080/api/comments', JSON.stringify(comment), { headers: this.headers })
                         .map(r => {
                             return (<Response>r).json();
                         })
