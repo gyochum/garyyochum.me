@@ -19,21 +19,33 @@ api.use(function(request, response, next){
 });
 
 //set up middleware to verify jwt
-api.use(eJwt({secret: settings.oauth.secret}).unless(function(request){
-   var result = false;
-   
-   //blog routes
-   result = request.path.indexOf('/api/blogs') > -1 && request.method === 'GET';
-   
-   //blog comment routes
-   result |= request.path.indexOf('/api/comments') > -1 && request.method === 'POST';
-   
-   //oauth routes
-   result |= request.path.indexOf('/api/settings') > -1 && request.method === 'GET';
-   result |= request.path.indexOf('/api/authenticate') > -1 && request.method === 'GET';
-   
-   return result;
-}));
+api.use(function(request, response, next){
+  console.log(request.headers.authorization);
+  
+  eJwt({
+        secret: settings.oauth.secret,
+        getToken: function(request){
+            if(request.headers.authorization && request.headers.authorization.split(' ')[0] === 'Bearer'){
+                return request.headers.authorization.split(' ')[1];
+            }
+        }
+    })
+    .unless(function(request){
+        var result = false;
+        
+        //blog routes
+        result = request.path.indexOf('/api/blogs') > -1 && request.method === 'GET';
+        
+        //blog comment routes
+        result |= request.path.indexOf('/api/comments') > -1 && request.method === 'POST';
+        
+        //oauth routes
+        result |= request.path.indexOf('/api/settings') > -1 && request.method === 'GET';
+        result |= request.path.indexOf('/api/authenticate') > -1 && request.method === 'GET';
+        
+        return result;
+  });      
+});
 
 //open db connection
 var uri = 'mongodb://127.0.0.1/gy';
