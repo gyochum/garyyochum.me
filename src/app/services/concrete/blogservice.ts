@@ -12,7 +12,7 @@ export class BlogPostService extends BaseService{
 	}
 	
 	getActivePosts(){
-		return this.http.get('http://localhost:8080/api/blogs')
+		return this.http.get(this.baseApiUrl + '/blogs')
 			.map(r => {
 				return (<Response>r).json();
 			})
@@ -39,7 +39,7 @@ export class BlogPostService extends BaseService{
 	}
     
     getBlogPost(id: string){
-        return this.http.get('http://localhost:8080/api/blogs/' + id)
+        return this.http.get(this.baseApiUrl + '/blogs/' + id)
                 .map(r => {
                     return (<Response>r).json();
                 })
@@ -70,7 +70,7 @@ export class BlogPostService extends BaseService{
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token);
         
-        return this.http.post('http://localhost:8080/api/blogs', JSON.stringify(post), { headers: this.headers })
+        return this.http.post(this.baseApiUrl + '/blogs', JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => {
                             console.log('response: '  + response);
                             return response.text()
@@ -81,9 +81,9 @@ export class BlogPostService extends BaseService{
         var token = Storage.get<string>("token");
                 
         if(token)
-            this.headers.append("Authorization", 'Bearer ' + token);
+            this.headers.append("Authorization", 'Bearer ' + token.replace(/['"]+/g, ''));
                                   
-        return this.http.put('http://localhost:8080/api/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
+        return this.http.put(this.baseApiUrl + '/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
                         .map((response: Response) => response.json());
     }
     
@@ -93,7 +93,7 @@ export class BlogPostService extends BaseService{
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token);
         
-        return this.http.delete('http://localhost:8080/api/blogs/' + id, { headers: this.headers})
+        return this.http.delete(this.baseApiUrl + '/blogs/' + id, { headers: this.headers})
                 .map((response: Response) => {return response.json();})
                 .map((response: any) => {
                    let result: BlogPost = new BlogPost();
@@ -117,7 +117,7 @@ export class BlogPostService extends BaseService{
     }
     
     saveComment(comment: Comment){
-        return this.http.post('http://localhost:8080/api/comments', JSON.stringify(comment), { headers: this.headers })
+        return this.http.post(this.baseApiUrl + '/comments', JSON.stringify(comment), { headers: this.headers })
                         .map(r => {
                             return (<Response>r).json();
                         })

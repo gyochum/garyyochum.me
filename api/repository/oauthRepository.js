@@ -52,8 +52,11 @@ exports.authenticate = function(req, response, next){
                    
                    //create jwt
                    var token = jwt.sign(profile, settings.oauth.secret, {
-                      expiresIn: 7200 
+                      expiresIn: 18000 
                    });
+                   
+                   //create cookie for token
+                   
                     
                    response.writeHead(302, {
                     'Location': 'http://127.0.0.1:8080/src/#/blogs?token=' + token   

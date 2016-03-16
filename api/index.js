@@ -19,10 +19,7 @@ api.use(function(request, response, next){
 });
 
 //set up middleware to verify jwt
-api.use(function(request, response, next){
-  console.log(request.headers.authorization);
-  
-  eJwt({
+api.use(eJwt({
         secret: settings.oauth.secret,
         getToken: function(request){
             if(request.headers.authorization && request.headers.authorization.split(' ')[0] === 'Bearer'){
@@ -43,9 +40,11 @@ api.use(function(request, response, next){
         result |= request.path.indexOf('/api/settings') > -1 && request.method === 'GET';
         result |= request.path.indexOf('/api/authenticate') > -1 && request.method === 'GET';
         
+        console.log('unless: ' + result);
+        
         return result;
-  });      
-});
+  })      
+);
 
 //open db connection
 var uri = 'mongodb://127.0.0.1/gy';
@@ -76,4 +75,4 @@ api.use(function(error, request, response, next){
 });
 
 //start server
-api.listen(8080);
+api.listen(3000);

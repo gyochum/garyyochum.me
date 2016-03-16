@@ -4,6 +4,7 @@ import {Storage} from '../../utilities/storage'
 export class BaseService{
 	
     public headers:Headers;
+    public baseApiUrl:string = 'http://localhost:3000/api';
     
     constructor(){
         this.headers = new Headers();

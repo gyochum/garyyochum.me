@@ -8,7 +8,7 @@ module.exports = {
             authorizeUrl: 'https://github.com/login/oauth/authorize',
             authenticateUrl: 'https://github.com/login/oauth/access_token',
             scope: 'user',
-            accessTokenUrl: 'http://localhost:8080/api/authenticate'
+            accessTokenUrl: 'http://localhost:3000/api/authenticate'
         }   
        }       
    } 

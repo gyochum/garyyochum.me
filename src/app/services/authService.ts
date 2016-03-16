@@ -10,7 +10,7 @@ export class AuthService extends BaseService{
     }
     
     getOAuthSettings(): Observable<Provider>{
-        return this.http.get('http://localhost:8080/api/settings')
+        return this.http.get(this.baseApiUrl + '/settings')
             .map((response: Response) => {
                 return response.json();
             })
