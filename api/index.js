@@ -21,8 +21,8 @@ api.use(function(request, response, next){
 //set up middleware to verify jwt
 api.use(eJwt({
         secret: settings.oauth.secret,
-        getToken: function(request){
-            if(request.headers.authorization && request.headers.authorization.split(' ')[0] === 'Bearer'){
+        getToken: function(request){            
+            if(request.headers.authorization && request.headers.authorization.split(' ')[0] === 'Bearer'){                
                 return request.headers.authorization.split(' ')[1];
             }
         }
@@ -31,7 +31,7 @@ api.use(eJwt({
         var result = false;
         
         //blog routes
-        result = request.path.indexOf('/api/blogs') > -1 && request.method === 'GET';
+        result = request.path.indexOf('/api/blogs') > -1 && (request.method === 'GET' || request.method === 'OPTIONS');
         
         //blog comment routes
         result |= request.path.indexOf('/api/comments') > -1 && request.method === 'POST';
@@ -40,6 +40,8 @@ api.use(eJwt({
         result |= request.path.indexOf('/api/settings') > -1 && request.method === 'GET';
         result |= request.path.indexOf('/api/authenticate') > -1 && request.method === 'GET';
         
+        console.log('method: ' + request.method);
+        console.log('path: ' + request.path);
         console.log('unless: ' + result);
         
         return result;

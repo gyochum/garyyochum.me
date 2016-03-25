@@ -12,7 +12,12 @@ export class BlogPostService extends BaseService{
 	}
 	
 	getActivePosts(){
-		return this.http.get(this.baseApiUrl + '/blogs')
+        var token = Storage.get<string>("token");
+                
+        if(token)
+            this.headers.append("Authorization", 'Bearer ' + token.replace(/['"]+/g, ''));
+        
+		return this.http.get(this.baseApiUrl + '/blogs', { headers: this.headers })
 			.map(r => {
 				return (<Response>r).json();
 			})

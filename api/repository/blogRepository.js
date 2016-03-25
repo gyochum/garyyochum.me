@@ -4,18 +4,48 @@ var model = require('../models/blog');
 var Comment = require('../models/comment');
 var ObjectId = require('mongoose').Types.ObjectId;
 
-exports.all = function(request, response, next){
-	model.find(function(error, results){
-		if(error)
-			return next(error);
+exports.all = function(request, response, next){    
+    var header = request.get('Authorization');
+    var query = model.find({
+                    "active": "true"
+                });
+    
+    if(header){
+        console.log('header sent');
+        var token = header.split(' ')[1];
+        var secret = settings.oauth.secret;
+        var verified = null;
+        
+        try{
+            verified = jwt.verify(token, secret);
+            
+            if(verified){
+               query = null; 
+            }
+        }
+        catch(ex){
+            console.log(ex);
+        }
+    }
+    
+    if(!query){
+        //verified as admin - get all blog posts
+        model.find(function(error, results){
+            if(error)
+                return next(error);
+            
+            return response.send(results);
+        });
+    }
+    else{
+        query.exec(function(error, posts){
+            if(error)
+                return next(error);
+            
+            return response.send(posts);
+        });
+    }
 		
-		try{
-			return response.send(results);	
-		}
-		catch(e){
-			response.send('error: ' + e);
-		}
-	});	
 }
 
 exports.detail = function(request, response, next){
