@@ -40,10 +40,6 @@ api.use(eJwt({
         result |= request.path.indexOf('/api/settings') > -1 && request.method === 'GET';
         result |= request.path.indexOf('/api/authenticate') > -1 && request.method === 'GET';
         
-        console.log('method: ' + request.method);
-        console.log('path: ' + request.path);
-        console.log('unless: ' + result);
-        
         return result;
   })      
 );

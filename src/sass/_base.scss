@@ -2,11 +2,17 @@ body{
 	color: $font-color;
 	font-family: $font-family;
     font-size: $base-font-size;
+    font-weight: 300;
+    line-height: 1.625;
 }
 
 a{
     color: #363534;
     text-decoration: none;
+}
+
+h1, h2, h3{
+    font-weight: 400;
 }
 
 h3{
@@ -32,6 +38,7 @@ img{
     
     .title{
         font-size: 1.5em;
+        line-height: 1.2;
         
         &:after{
             content: "";
@@ -77,8 +84,7 @@ img{
 }
 
 .text-block{
-    @include word-wrap();
-    line-height: 1.2;
+    @include word-wrap();    
 }
 
 .social-icons{
