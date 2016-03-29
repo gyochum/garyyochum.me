@@ -26,3 +26,10 @@
 @mixin font-color($color){
     color: $color;
 }
+
+@mixin transition($property, $duration, $method){
+    transition: $property $duration $method;    
+    -moz-transition: $property $duration $method;        
+    -webkit-transition: $property $duration $method;
+    -o-transition: $property $duration $method;      
+}

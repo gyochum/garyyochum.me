@@ -39,7 +39,22 @@ img{
     .title{
         font-size: 1.5em;
         line-height: 1.2;
+    }
+    
+    .links{
+        font-weight: 400;
         
+        a{
+            @include transition(width, .5s, 'ease-in');
+            
+            &:hover{
+              color: #000;  
+            }            
+        }
+    }
+    
+    .title, 
+    .links{
         &:after{
             content: "";
             display: block;
@@ -140,15 +155,25 @@ img{
 
 @media only screen and (max-width: 768px){
     
-    .container
-    .site-header
+    .container,
+    .site-header,
     .site-body{
         width: 100%;
         float: none;
     }
     
+    .site-header{
+        padding-top: 15px;        
+        text-align: center;
+        position: static;
+    }
+    
     .login{
         display: none;
+    }
+    
+    .text-block{        
+        margin: 0 15%;
     }
     
 }
