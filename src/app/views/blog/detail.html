@@ -35,7 +35,8 @@
         <label for="email">
             Email <span>*</span>
         </label>
-        <input name="email" ng-control="email" placeholder="enter your email" type="text" />
+        <input name="email" ng-control="email" (blur)="getAvatar()" placeholder="enter your email" type="text" />
+        <span><img src="" *ng-if="avatar" /></span>
         
         <label for="body">
             Body <span>*</span>

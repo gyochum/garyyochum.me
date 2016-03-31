@@ -142,6 +142,25 @@ export class BlogPostService extends BaseService{
                         
     }
     
+    getAvatar(email: String){
+        return this.http.get('https://api.github.com/search/users?type=Users&q=' + email + '+in%3Aemail')
+            .map((r: Response) => { return r.json(); })
+            .map((results: any) => {
+               let result: String= '';
+               let item: any = null;
+               
+               if(results && results.total_count == 1){
+                   item = results.items[0];
+                   
+                   if(item){
+                       result = item.avatar_url;
+                   }
+               }
+               
+               return result; 
+            });
+    }
+    
     private mapComments(comments: Array<any>): Array<Comment> {
         var results: Array<Comment> = new Array<Comment>();
         

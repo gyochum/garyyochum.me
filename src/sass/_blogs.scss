@@ -34,3 +34,11 @@ article, section, .comment{
      clear: both;   
     }
 }
+
+@media only screen and (max-width: 768px){
+    
+    article, .comment{
+        margin: 0 30px;
+    }
+    
+}

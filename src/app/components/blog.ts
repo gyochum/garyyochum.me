@@ -57,8 +57,16 @@ export class BlogPostDetailComponent{
         console.log(commentId);
     }
     
+    getAvatar(){
+        this.service.getAvatar(this.commentForm.value.email)
+            .subscribe((response: String) => {
+               this.avatar = response;
+            });
+    }
+    
     public service: BlogPostService;
     public post: BlogPost;
     public commentForm: any;
+    public avatar: String;
     
 }
