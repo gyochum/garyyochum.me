@@ -1,14 +1,13 @@
 data
 node_modules
-src/libs
 src/definitions
 *.log
 npm-debug.log
 npm-debug.log.*
 
 # all generated js
-src/app/**/*.js
-src/app/**/*.js.map
+app/**/*.js
+app/**/*.js.map
 
 #all generated css
-src/assets/css/**/*.css
+assets/css/**/*.css
