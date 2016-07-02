@@ -4,21 +4,23 @@
     <link rel="stylesheet" id="google-font-roboto-css" href="//fonts.googleapis.com/css?family=Roboto+Condensed%3A300%7CRoboto+Slab%3A300%2C400&amp;ver=1.1" type="text/css" media="all">
     <link rel="stylesheet" type="text/css" href="./assets/css/styles.css"></link>
     <link rel="stylesheet" type="text/css" href="./node_modules/toastr/build/toastr.min.css"></link>
-    <link rel="stylesheet" type="text/css" href="./libs/font-awesome/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="./node_modules/font-awesome/css/font-awesome.min.css"></link>
     
-    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="./node_modules/core-js/client/shim.min.js"></script>
     <script src="./node_modules/toastr/build/toastr.min.js"></script>
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="./node_modules/zone.js/dist/zone.js"></script>
+    <script src="./node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="./node_modules/systemjs/dist/system.src.js"></script>
     
     <!-- 2. Configure SystemJS -->
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('app').catch(function(err){ console.error(err); });   
+    <script src="./systemjs.config.js"></script>
+    <script>      
+      System.import('app').catch(function(err){ console.error(err); })
     </script>
+    
+    <base href="/">
   </head>
   <body>
-    <app><i class="fa fa-spin fa-spinner"></i></app>    
+    <app><i class="fa fa-spin fa-circle-o-notch site-loader"></i></app>    
   </body>
 </html>

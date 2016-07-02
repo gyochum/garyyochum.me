@@ -1,10 +1,10 @@
-<div class="login" *ng-if="!isLoggedIn">
-    <a [router-link]="['Authorize']" class="fa fa-sign-in"></a>
+<div class="login" *ngIf="!isLoggedIn">
+    <a href class="fa fa-sign-in"></a>
 </div>
 <div class="container">    
     <header class="site-header">
         <div class="avatar">
-            <a [router-link]="['Blogs']"><img src="/src/assets/images/avatar.jpg" alt="gary" /></a>
+            <a href><img src="/assets/images/avatar.jpg" alt="gary" /></a>
         </div>
         <h1 class="title">Gary's Blog of Stuff...and Things</h1> 
         <div class="text-block">
@@ -12,9 +12,9 @@
             I will also post about stuff not related to the previous three items I just mentioned.
         </div>   
         <div class="links">
-            <a [router-link]="['Blogs']">Blog</a> / 
-            <a [router-link]="['Blogs']">About</a> 
-            <a *ng-if="isLoggedIn" (click)="logout()"> / Log Out</a>    
+            <a href>Blog</a> / 
+            <a href>About</a> 
+            <a *ngIf="isLoggedIn" (click)="logout()"> / Log Out</a>    
         </div>
         <div class="social-icons">
             <ul>
