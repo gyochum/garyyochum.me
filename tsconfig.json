@@ -9,13 +9,5 @@
 		"removeComments": false,
 		"noImplicitAny": false,
 		"suppressImplicitAnyIndexErrors": true
-	},	
-	"files": [
-		"./app/main.ts",
-		"./app/routes/app.routes.ts",
-		"./app/components/app.component.ts"	
-	],
-	"exclude": [
-		"node_modules"
-	]
+	}
 }

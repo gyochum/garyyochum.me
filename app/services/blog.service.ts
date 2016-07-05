@@ -1,13 +1,14 @@
-import {Inject} from 'angular2/angular2';
-import {Http, Response, Headers} from 'angular2/http';
-import {BlogPost} from '../../models/blogpost';
-import {Comment} from '../../models/comment';
-import {BaseService} from './baseService';
-import {Storage} from '../../utilities/storage';
+import {Injectable} from '@angular/core';
+import {Http, Response, Headers} from '@angular/http';
+import {BlogPost} from '../models/blogpost';
+import {Comment} from '../models/comment';
+import {BaseService} from './base.service';
+import {Storage} from '../utilities/storage';
 
+@Injectable()
 export class BlogPostService extends BaseService{
     
-	constructor(@Inject(Http) public http:Http){		        
+	constructor(private http:Http){		        
         super();
 	}
 	

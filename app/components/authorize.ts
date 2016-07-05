@@ -1,5 +1,5 @@
-import {Component} from 'angular2/angular2';
-import {RouterLink} from 'angular2/router';
+import {Component} from '@angular/core';
+import {RouterLink} from '@angular/router';
 import {Provider} from '../models/provider';
 import { AuthService } from '../services/authService';
 

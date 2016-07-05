@@ -3,6 +3,9 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var jwt = require('jsonwebtoken');
 var eJwt = require('express-jwt');
+var cors = require('cors');
+var helmet = require('helmet');
+require('dotenv').config();
 var settings = require('./settings');
 var api = express();
 
@@ -10,13 +13,10 @@ api.use(bodyParser.urlencoded({ extended: false }));
 api.use(bodyParser.json());
 
 //enable CORS
-api.use(function(request, response, next){
-	response.header('Access-Control-Allow-Origin', '*');
-	response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    response.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    response.header('Content-Type', 'application/json');
-	next();
-});
+api.use(cors());
+
+//extra api protection
+api.use(helmet());
 
 //set up middleware to verify jwt
 api.use(eJwt({
@@ -45,8 +45,9 @@ api.use(eJwt({
 );
 
 //open db connection
-var uri = 'mongodb://127.0.0.1/gy';
-global.db = mongoose.createConnection(uri);
+mongoose.connect(settings.db(), { config: { autoIndex: false } });
+mongoose.connection
+        .on('error', console.log)
 
 //get repository modules
 var blogRepository = require('./repository/blogRepository');

@@ -1,18 +1,26 @@
-import { Component, View, NgFor, NgIf } from 'angular2/angular2';
-import { RouterLink, RouteParams } from 'angular2/router';
-import {BlogPost} from '../models/blogpost';
-import {BlogPostService} from '../services/concrete/blogservice';
-import {Storage} from '../utilities/storage';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { RouterLink, ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
+import { BlogPost } from '../models/blogpost';
+import { BlogPostService } from '../services/blog.service';
 
 @Component({
-    selector: 'blogs',
+    selector: 'app',
     templateUrl: './app/views/blog/index.html',
     providers: [BlogPost, BlogPostService],
     directives: [NgFor, NgIf, RouterLink]    
 })
 
-export class BlogPostComponent { 
-    constructor(data: RouteParams, svc: BlogPostService){
+export class BlogsComponent implements OnInit { 
+    
+    private route: ActivatedRoute;
+    
+    ngOnInit() : any{
+        //this.route.
+    }
+    
+   
+    /*constructor(data: RouteParams, svc: BlogPostService){
         var token = data.get('token');
         
         if(token)
@@ -27,6 +35,7 @@ export class BlogPostComponent {
             });
     }
     
+    
     delete(id: string){
         this.service.delete(id).subscribe((response: BlogPost) => {
             var index = this.posts.map((p: BlogPost) => {
@@ -35,12 +44,10 @@ export class BlogPostComponent {
             
             if(index > -1){
                 this.posts.splice(index, 1);
-                toastr.success('post deleted successfully.');
+                //toastr.success('post deleted successfully.');
             }
         })
     }
+    */
     
-    public posts:Array<BlogPost>;
-    public isLoggedIn: boolean = false;
-    private service:BlogPostService;    
 }

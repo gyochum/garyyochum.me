@@ -1,4 +1,10 @@
 module.exports = {   
+    
+    db: function () {
+        if (process.env.ENVIRONMENT === 'dev')
+            return 'mongodb://gy_dev:@bergy12!@ds011745.mlab.com:11745/garyyochum';        
+    },
+    
    oauth: {
        secret: 'garyssuperdupersecret',
        providers: {

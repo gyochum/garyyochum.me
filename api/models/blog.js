@@ -1,7 +1,5 @@
-var Schema = require('../../node_modules/mongoose/lib').Schema; 
-var Comment = require('./comment');
+var Schema = require('mongoose').Schema; 
 
-//set up schemas
 var blogSchema = new Schema({
 	id: Number,
     url: String,
@@ -9,7 +7,6 @@ var blogSchema = new Schema({
     preview: String,
 	body: String,
 	active: Boolean,
-	//comments: [Comment],
     comments: [{
         id: Number,
         name: String,
