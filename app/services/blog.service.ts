@@ -4,6 +4,7 @@ import {BlogPost} from '../models/blogpost';
 import {Comment} from '../models/comment';
 import {BaseService} from './base.service';
 import {Storage} from '../utilities/storage';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class BlogPostService extends BaseService{
@@ -18,8 +19,15 @@ export class BlogPostService extends BaseService{
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token.replace(/['"]+/g, ''));
         
+        
+        
 		return this.http.get(this.baseApiUrl + '/blogs', { headers: this.headers })
-			.map(r => {
+            .toPromise()
+            .then(response => {
+                
+            });
+            
+			/*.map(r => {
 				return (<Response>r).json();
 			})
 			.map((posts: Array<any>) => {
@@ -41,7 +49,7 @@ export class BlogPostService extends BaseService{
 					})
 				}
 				return result;
-			});					
+			});	*/				
 	}
     
     getBlogPost(id: string){

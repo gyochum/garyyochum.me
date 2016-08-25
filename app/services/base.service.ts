@@ -1,5 +1,5 @@
 import { Headers } from '@angular/http';
-import {Storage} from '../../utilities/storage'
+import {Storage} from '../utilities/storage'
 
 export class BaseService{
 	

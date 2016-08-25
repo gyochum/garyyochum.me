@@ -11,7 +11,7 @@ export class BlogPost{
 	isActive: boolean;
 	createdDate: Date;
 	tags: Array<string>;
-	public comments: Array<Comment>;
+	comments: Array<Comment>;
 	
 	//ctor
 	constructor(){
