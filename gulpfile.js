@@ -1,7 +1,21 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var typscript = require('gulp-typescript');
+var ts = require('gulp-typescript');
 var process = require('child_process');
+
+var config = {
+	sass: {
+		src: './sass/**/*.scss',
+		dest: './dist/css'
+	},
+	typescript: {
+		src: './app/**/*.ts'	
+	},
+	js: {
+		src: './app/**/*.js',
+		dest: './dist/js'
+	}	
+};
 
 //sass
 gulp.task('sass', function(){
@@ -21,15 +35,10 @@ gulp.task('mongodb-start', function(){
 });
 
 //typescript
-gulp.task('typescript', function(){
-	var project = typscript.createProject('./src/tsconfig.json');
-	var result = project.src()
-		.pipe(typscript(project));
-		
-		
-	process.stdout.write(result);
+gulp.task('ts:compile', function(){
+	var project = ts.createProject('tsconfig.json');
 	
-	
-	return result.js;
+	return gulp.src(config.typescript.src)
+		.pipe(ts(project));
 });
 		

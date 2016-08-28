@@ -1,6 +1,6 @@
 data
 node_modules
-src/definitions
+dist
 *.log
 npm-debug.log
 npm-debug.log.*

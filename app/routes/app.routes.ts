@@ -1,11 +1,11 @@
-import { provideRouter, RouterConfig } from '@angular/router';
-import { AppComponent } from '../components/app.component';
-import { CreateBlogPostComponent } from '../components/create.blogpost.component';
+import { ModuleWithProviders } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { BlogsComponent } from '../components/blogs.component';
 
-export const routes: RouterConfig = [
-    { path: 'blog', component: CreateBlogPostComponent }
+const routes: Routes  = [
+  
 ];
 
-export const APP_ROUTER_PROVIDERS = [
-  provideRouter(routes)  
-];
+export const routeProviders: any[] = [];
+
+export const routing:ModuleWithProviders = RouterModule.forRoot(routes);

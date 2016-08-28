@@ -17,4 +17,8 @@ export class BlogsComponent implements OnInit {
         //this.route.
     }
     
+    clicked(){
+        console.log('link clicked');
+    }
+    
 }

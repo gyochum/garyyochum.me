@@ -4,13 +4,14 @@
   "description": "garys MEAN stack app",
   "main": "startup.js",
   "scripts": {
+    "gulp": "gulp",
     "tsc": "tsc",
     "tsc-watch": "tsc -w",
-    "live": "live-server --port=8080 --host=localhost",
+    "live": "live-server --port=8080 --host=localhost --quiet",
     "api": "node-dev ./api/index.js",
     "sass": "node-sass --watch ./sass/ --output ./assets/css",
     "start-old": "concurrent \"npm run tsc\" \"npm run live\" \"npm run api\" \"npm run sass\" ",
-    "start": "concurrently \"npm run live\" \"npm run sass\" "
+    "start": "concurrently \"npm run tsc-watch\" \"npm run sass\" \"npm run live\" "
   },
   "keywords": [
     "angular2",
