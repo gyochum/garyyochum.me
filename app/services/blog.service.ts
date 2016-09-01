@@ -3,6 +3,8 @@ import {Http, Response, Headers} from '@angular/http';
 import {BlogPost} from '../models/blogpost';
 import {Comment} from '../models/comment';
 import {BaseService} from './base.service';
+import { ServiceResponse } from '../models/serviceResponse';
+import { POSTS } from '../data/mock-blogposts';
 import {Storage} from '../utilities/storage';
 import 'rxjs/add/operator/toPromise';
 
@@ -13,6 +15,15 @@ export class BlogPostService extends BaseService{
         super();
 	}
 	
+    getPosts():ServiceResponse<Array<BlogPost>>{
+        var result:ServiceResponse<Array<BlogPost>> = new ServiceResponse<Array<BlogPost>>();
+        
+        result.success = true;
+        result.data = POSTS;
+        
+        return result;
+    }
+    
 	getActivePosts(){
         var token = Storage.get<string>("token");
                 
