@@ -9,15 +9,15 @@
     "tsc-watch": "tsc -w",
     "live": "live-server --port=8080 --host=localhost --quiet",
     "api": "node-dev ./api/index.js",
-    "sass": "node-sass --watch ./sass/ --output ./assets/css",
-    "start-old": "concurrent \"npm run tsc\" \"npm run live\" \"npm run api\" \"npm run sass\" ",
-    "start": "concurrently \"npm run tsc-watch\" \"npm run sass\" \"npm run live\" "
+    "start-old": "concurrent \"npm run tsc\" \"npm run live\" \"npm run api\" \"npm run gulp sass:watch\" ",
+    "start": "concurrently \"npm run tsc-watch\" \"npm run gulp sass:watch\" \"npm run live\" "
   },
   "keywords": [
     "angular2",
     "express",
     "responsive",
-    "mongodb"
+    "mongodb",
+    "sass"
   ],
   "author": "gary yochum",
   "license": "ISC",
@@ -55,12 +55,13 @@
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
-    "lite-server": "^2.2.0",
-    "typescript": "^1.8.10",
-    "typings": "^1.0.4",
-    "tslint": "^3.7.4",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.1.1",
-    "gulp-typescript": "^2.10.0"
+    "gulp-typescript": "^2.10.0",
+    "live-server": "^1.1.0",
+    "node-sass": "^3.9.3",
+    "tslint": "^3.7.4",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4"
   }
 }
