@@ -22,9 +22,5 @@ export class BlogsComponent implements OnInit {
             this.posts = response.data;
         }
     }
-    
-    clicked(){
-        console.log('link clicked');
-    }
-    
+   
 }

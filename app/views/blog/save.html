@@ -1,39 +1,28 @@
 <section class="save-blog">
     <h1 class="title">Manage Your Blog Posts</h1>
-    <form (ngSubmit)="create()" #blogForm="ngForm" novalidate>
+    <form name="frmSave" (ngSubmit)="save()" novalidate>
         <input [(ngModel)]="model.isActive" name="isActive" type="checkbox" /> <span class="label">Active?</span>
         <label for="title">
             Title <span>*</span>
         </label>
         <input name="title" [(ngModel)]="model.title" placeholder="enter title" type="text" #spy required /> <span>{{spy.className}}</span>
-        <div [hidden]="title.valid || title.pristine" class="error">
-            Please enter a title.
-        </div>
         
         <label for="url">
             Url <span>*</span>
         </label>
         <input name="url" [(ngModel)]="model.url" placeholder="enter url" type="text" required />
-        <div [hidden]="url.valid || url.pristine" class="error">
-            Please enter a url.
-        </div>
+        <span>{{model.url}}</span>
         
         <label for="preview">
             Preview <span>*</span>
         </label>
         <textarea name="preview" [(ngModel)]="model.preview" placeholder="enter preview" rows="5" cols="45" required></textarea>
-        <div [hidden]="preview.valid || preview.pristine" class="error">
-            Please enter a preview of the post..
-        </div>
         
         <label for="body">
             Body <span>*</span>
         </label>
         <textarea name="body" [(ngModel)]="model.body" placeholder="enter body of post" rows="10" cols="45"></textarea>
-        <div [hidden]="body.valid || body.pristine" class="error">
-            Please enter the body of the post..
-        </div>
         
-        <button type="submit" [disabled]="!blogForm.form.valid">Save</button>
+        <button type="submit">Save</button>
     </form>
 </section>
