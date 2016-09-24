@@ -3,12 +3,10 @@ dist
 *.log
 npm-debug.log
 npm-debug.log.*
+.vscode
 
 # all generated js
 app/**/*.js
 app/**/*.js.map
 test/**/*.js
 test/**/*.js.map
-
-#all generated css
-assets/css/**/*.css

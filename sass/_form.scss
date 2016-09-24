@@ -22,8 +22,12 @@ input[type=checkbox]{
 }
 
 .error{
-    color: #ff0000;
+    border: solid 1px #ff0000;
     margin-bottom: 5px;
+}
+
+.error-text{
+    color: #ff0000;
 }
 
 button{

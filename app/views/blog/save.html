@@ -5,23 +5,24 @@
         <label for="title">
             Title <span>*</span>
         </label>
-        <input name="title" [(ngModel)]="model.title" placeholder="enter title" type="text" #spy required /> <span>{{spy.className}}</span>
+        <input id="title" name="title" #title="ngModel" [class.error]="title.touched && title.invalid" [(ngModel)]="model.title" type="text" required />
+        <span class="error-text" [hidden]="title.valid || title.pristine">title is required duh.</span>
         
         <label for="url">
             Url <span>*</span>
         </label>
-        <input name="url" [(ngModel)]="model.url" placeholder="enter url" type="text" required />
+        <input name="url" [(ngModel)]="model.url" type="text" required />
         <span>{{model.url}}</span>
         
         <label for="preview">
             Preview <span>*</span>
         </label>
-        <textarea name="preview" [(ngModel)]="model.preview" placeholder="enter preview" rows="5" cols="45" required></textarea>
+        <textarea name="preview" [(ngModel)]="model.preview" rows="5" cols="45" required></textarea>
         
         <label for="body">
             Body <span>*</span>
         </label>
-        <textarea name="body" [(ngModel)]="model.body" placeholder="enter body of post" rows="10" cols="45"></textarea>
+        <textarea name="body" [(ngModel)]="model.body" rows="10" cols="45"></textarea>
         
         <button type="submit">Save</button>
     </form>
