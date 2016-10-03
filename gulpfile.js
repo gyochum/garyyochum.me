@@ -69,3 +69,5 @@ gulp.task('move', ['sass','css','fonts'], function(){});
 gulp.task('sass:watch', function(){
 	gulp.watch(config.sass.src, ['sass']);
 });
+
+gulp.task('default', ['move']);

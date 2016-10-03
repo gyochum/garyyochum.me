@@ -1,6 +1,6 @@
 <section class="save-blog">
     <h1 class="title">Manage Your Blog Posts</h1>
-    <form name="frmSave" (ngSubmit)="save()" novalidate>
+    <form name="frmSave" (ngSubmit)="save()" #blogForm="ngForm" novalidate>
         <input [(ngModel)]="model.isActive" name="isActive" type="checkbox" /> <span class="label">Active?</span>
         <label for="title">
             Title <span>*</span>
@@ -11,19 +11,21 @@
         <label for="url">
             Url <span>*</span>
         </label>
-        <input name="url" [(ngModel)]="model.url" type="text" required />
-        <span>{{model.url}}</span>
+        <input name="url" [(ngModel)]="model.url" type="text" [class.error]="url.touched && url.invalid"  #url="ngModel" required />
+        <span class="error-text" [hidden]="url.valid || url.pristine">url is required duh.</span>
         
         <label for="preview">
             Preview <span>*</span>
         </label>
-        <textarea name="preview" [(ngModel)]="model.preview" rows="5" cols="45" required></textarea>
+        <textarea name="preview" [(ngModel)]="model.preview" rows="5" cols="45" [class.error]="preview.touched && preview.invalid"  #preview="ngModel" required></textarea>
+        <span class="error-text" [hidden]="preview.valid || preview.pristine">preview is required duh.</span>
         
         <label for="body">
             Body <span>*</span>
         </label>
-        <textarea name="body" [(ngModel)]="model.body" rows="10" cols="45"></textarea>
+        <textarea name="body" [(ngModel)]="model.body" [class.error]="body.touched && body.invalid"  #body="ngModel" rows="10" cols="45" required></textarea>
+        <span class="error-text" [hidden]="body.valid || body.pristine">body is required duh.</span>
         
-        <button type="submit">Save</button>
+        <button type="submit" [disabled]="!blogForm.form.valid">Save</button>
     </form>
 </section>

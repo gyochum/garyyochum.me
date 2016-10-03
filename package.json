@@ -5,6 +5,7 @@
   "main": "startup.js",
   "scripts": {
     "gulp": "gulp",
+    "typings": "typings install",
     "tsc": "tsc",
     "tsc-watch": "tsc -w",
     "live": "live-server --port=8080 --host=localhost --quiet",
