@@ -7,6 +7,7 @@ var cors = require('cors');
 var helmet = require('helmet');
 require('dotenv').config();
 var settings = require('./settings');
+var applicationError = require('./models/error');
 var api = express();
 
 api.use(bodyParser.urlencoded({ extended: false }));
@@ -19,7 +20,7 @@ api.use(cors());
 api.use(helmet());
 
 //set up middleware to verify jwt
-api.use(eJwt({
+/*api.use(eJwt({
         secret: settings.oauth.secret,
         getToken: function(request){            
             if(request.headers.authorization && request.headers.authorization.split(' ')[0] === 'Bearer'){                
@@ -42,12 +43,11 @@ api.use(eJwt({
         
         return result;
   })      
-);
+);*/
 
 //open db connection
 mongoose.connect(settings.db(), { config: { autoIndex: false } });
-mongoose.connection
-        .on('error', console.log)
+mongoose.connection.on('error', console.log);
 
 //get repository modules
 var blogRepository = require('./repository/blogRepository');
@@ -68,9 +68,17 @@ api.put('/api/comments/:id', blogRepository.updateComment);
 
 //set up error handling function
 api.use(function(error, request, response, next){
-    console.log(error);
-   if(error.name === 'UnauthorizedError')
-    response.status(403).json({success: false, message: 'you are not authorized to perform this operation'}); 
+    applicationError.create({
+        name: error.name,
+        message: erorr.message,
+        stack: error.stack
+    }, function(err, doc){
+        return response.json({
+           success: false,
+           message: 'an error occurred',
+           data: null
+        });
+    });
 });
 
 //start server

@@ -2,7 +2,7 @@ module.exports = {
     
     db: function () {
         if (process.env.ENVIRONMENT === 'dev')
-            return 'mongodb://gy_dev:@bergy12!@ds011745.mlab.com:11745/garyyochum';        
+            return 'mongodb://gy_dev:bergkamp10@ds044989.mlab.com:44989/garyyochum';        
     },
     
    oauth: {

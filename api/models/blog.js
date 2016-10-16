@@ -1,4 +1,5 @@
-var Schema = require('mongoose').Schema; 
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema; 
 
 var blogSchema = new Schema({
 	id: Number,
@@ -18,4 +19,4 @@ var blogSchema = new Schema({
 	created: {type: Date, default: Date.now}
 });
 
-module.exports = db.model('BlogPost', blogSchema);
+module.exports = mongoose.model('BlogPost', blogSchema);

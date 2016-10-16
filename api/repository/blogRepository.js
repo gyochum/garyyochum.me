@@ -81,8 +81,12 @@ exports.save = function(request, response, next){
         if(err)
             return next(err);
             
-        response.send('saved');
-    });	
+        return response.json({
+           success: true,
+           message: '',
+           data: post 
+        });
+    });	    
 }
 
 exports.update = function(request, response, next){

@@ -1,4 +1,5 @@
-var Schema = require('../../node_modules/mongoose/lib').Schema; 
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema; 
 
 //set up schemas
 var commentSchema = new Schema({
@@ -10,4 +11,4 @@ var commentSchema = new Schema({
 	created: {type: Date, default: Date.now}
 });
 
-module.exports = db.model('Comment', commentSchema);
+module.exports = mongoose.model('Comment', commentSchema);

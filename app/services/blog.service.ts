@@ -6,17 +6,20 @@ import {BaseService} from './base.service';
 import { ServiceResponse } from '../models/serviceResponse';
 import { POSTS } from '../data/mock-blogposts';
 import {Storage} from '../utilities/storage';
+import {CookieService} from 'angular2-cookie/core';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class BlogPostService extends BaseService{
     
-	constructor(private http:Http){		        
+    private api:string = this.baseApiUrl + "/blogs";
+    
+	constructor(private http:Http, private cookieService: CookieService){		        
         super();
 	}
 	
     getPosts():ServiceResponse<Array<BlogPost>>{
-        var result:ServiceResponse<Array<BlogPost>> = new ServiceResponse<Array<BlogPost>>();
+        var result:ServiceResponse<Array<BlogPost>> =  new ServiceResponse<Array<BlogPost>>(true, "", null);
         
         result.success = true;
         result.data = POSTS;
@@ -64,121 +67,38 @@ export class BlogPostService extends BaseService{
 	}
     
     getBlogPost(id: string){
-        return this.http.get(this.baseApiUrl + '/blogs/' + id)
-                .map(r => {
-                    return (<Response>r).json();
-                })
-                .map((posts: Array<any>) => {                    
-                   let result: BlogPost = new BlogPost();
-                   
-                   if(posts && posts.length > 0){
-                       var post = posts[0];
-                       
-                       result.id = post._id;
-                       result.url = post.url;
-                       result.title = post.title;
-                       result.preview = post.preview;
-						result.body = post.body;
-						result.isActive = post.active == undefined? false:post.active;
-						result.createdDate = new Date(post.created);
-						result.tags = post.tags;
-                        result.comments = this.mapComments(post.comments);
-                   }  
-                   
-                   return result;
-                });
+        
     }
     
-    save(post: BlogPost){
-        var token = Storage.get<string>("token");        
+    save(post: BlogPost): Promise<ServiceResponse<BlogPost>>{
+       var token:string = this.cookieService.get("token");        
         
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token);
         
         return this.http.post(this.baseApiUrl + '/blogs', JSON.stringify(post), { headers: this.headers })
-                        .map((response: Response) => {
-                            console.log('response: '  + response);
-                            return response.text()
+                        .toPromise()
+                        .then((response: Response) => {
+                            var result = response.json();
+                            
+                            return new ServiceResponse<BlogPost>(result.success, result.message, result.data);
                         });
     }
     
     update(post: BlogPost){ 
-        var token = Storage.get<string>("token");
-                
-        if(token)
-            this.headers.append("Authorization", 'Bearer ' + token.replace(/['"]+/g, ''));
-                                  
-        return this.http.put(this.baseApiUrl + '/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
-                        .map((response: Response) => response.json());
+        
     }
     
     delete(id: string){
-        var token = Storage.get<string>("token");
-                
-        if(token)
-            this.headers.append("Authorization", 'Bearer ' + token);
-        
-        return this.http.delete(this.baseApiUrl + '/blogs/' + id, { headers: this.headers})
-                .map((response: Response) => {return response.json();})
-                .map((response: any) => {
-                   let result: BlogPost = new BlogPost();
-                   
-                   if (response){
-                       var post = response.value;
-                       
-                       result.id = post._id;
-                       result.url = post.url;
-                       result.title = post.title;
-                       result.preview = post.preview;
-					   result.body = post.body;
-					   result.isActive = post.active == undefined? false:post.active;
-					   result.createdDate = new Date(post.created);
-					   result.tags = post.tags;
-                       result.comments = this.mapComments(post.comments);
-                   }
-                   
-                   return result; 
-                });                        
+                           
     }
     
     saveComment(comment: Comment){
-        return this.http.post(this.baseApiUrl + '/comments', JSON.stringify(comment), { headers: this.headers })
-                        .map(r => {
-                            return (<Response>r).json();
-                        })
-                        .map((comments: Array<any>) => {
-                            let results: Array<Comment> = new Array<Comment>();
-                            
-                            if(comments && comments.length > 0){
-                                //var post = posts[0];
-                                
-                                if(comments && comments.length > 0){
-                                    results = this.mapComments(comments);
-                                }
-                            }    
-                            
-                            return results;
-                        });
-                        
+       
     }
     
     getAvatar(email: String){
-        return this.http.get('https://api.github.com/search/users?type=Users&q=' + email + '+in%3Aemail')
-            .map((r: Response) => { return r.json(); })
-            .map((results: any) => {
-               let result: String= '';
-               let item: any = null;
-               
-               if(results && results.total_count == 1){
-                   item = results.items[0];
-                   
-                   if(item){
-                       result = item.avatar_url;
-                   }
-               }
-               
-               return result; 
-            });
+        
     }
     
     private mapComments(comments: Array<any>): Array<Comment> {

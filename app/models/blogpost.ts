@@ -14,14 +14,24 @@ export class BlogPost{
 	comments: Array<Comment>;
 	
 	//ctor
-	constructor(id?:string, url?:string, title?:string, preview?:string, body?:string, isActive?:boolean, createdDate:Date = new Date()){
-		if(id) this.id = id;
-		if(url) this.url = url;
-		if(title) this.title = title;
-		if(preview) this.preview = preview;
-		if(body) this.body = body;
-		if(isActive) this.isActive = isActive;
-		this.createdDate = createdDate;
+	constructor(data:any){
+		if(data){
+			if(data.id) this.id = data.id;
+			if(data.url) this.url = data.url;
+			if(data.title) this.title = data.title;
+			if(data.preview) this.preview = data.preview;
+			if(data.body) this.body = data.body;
+			if(data.isActive) this.isActive = data.isActive;
+			this.createdDate = data.createdDate;
+			
+			if(data.tags){
+				this.tags = data.tags as Array<string>;
+			}
+			
+			if(data.comments){
+				
+			}	
+		}		
 	}
     
     commentCount(){
