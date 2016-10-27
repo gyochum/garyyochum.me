@@ -33,7 +33,8 @@ var config = {
 				'./node_modules/zone.js/dist/zone.js',
 				'./node_modules/reflect-metadata/Reflect.js',
 				'./node_modules/systemjs/dist/system.src.js',
-				'./node_modules/jquery/dist/jquery.min.js'
+				'./node_modules/jquery/dist/jquery.min.js',
+				'./node_modules/toastr/build/toastr.min.js'
 			],
 			dest: './dist/vendor/js'
 		}	
@@ -42,7 +43,7 @@ var config = {
 
 function handleError(error){
 	console.log(error.message);
-	console.log(this.emit);
+	this.emit('end');
 }
 
 //compilation
@@ -56,8 +57,7 @@ gulp.task('scripts', function(){
 	var project = ts.createProject('tsconfig.json');
 	
 	return gulp.src(config.js.src)
-		.pipe(project())
-		.on('error', handleError)
+		.pipe(project(ts.reporter.nullReporter()).on('error', handleError))		
 		.pipe(gulp.dest(config.js.dest));
 });
 

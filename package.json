@@ -55,7 +55,7 @@
     "concurrently": "^2.0.0",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.1.1",
-    "gulp-typescript": "^2.14.1",
+    "gulp-typescript": "^3.0.2",
     "live-server": "^1.1.0",
     "node-sass": "^3.9.3",
     "tslint": "^3.7.4",
