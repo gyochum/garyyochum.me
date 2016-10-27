@@ -1,73 +1,108 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var ts = require('gulp-typescript');
-var process = require('child_process');
+var server = require('live-server');
 
 var config = {
-	sass: {
+	css: {
 		src: './sass/**/*.scss',
 		dest: './dist/css'
 	},
-	css: {
-		src: [
-			'./node_modules/toastr/build/toastr.min.css',
-			'./node_modules/font-awesome/css/font-awesome.min.css'
-		],
-		dest: './dist/css'
-	},
-	fonts: {
-		src: './node_modules/font-awesome/fonts/*',
-		dest: './dist/fonts'
-	},
-	typescript: {
-		src: './app/**/*.ts'	
-	},
 	js: {
-		src: './app/**/*.js',
-		dest: './dist/js'
-	}	
+		src: './app/**/*.ts',
+		dest: './dist/js'	
+	},
+	html: {
+		src: './app/**/*.html'	
+	},
+	vendor: {
+		css: {
+			src: [
+				'./node_modules/toastr/build/toastr.min.css',
+				'./node_modules/font-awesome/css/font-awesome.min.css'
+			],
+			dest: './dist/vendor/css'
+		},
+		fonts: {
+			src: './node_modules/font-awesome/fonts/*',
+			dest: './dist/vendor/fonts'
+		},
+		js: {
+			src: [
+				'./node_modules/core-js/client/shim.min.js',
+				'./node_modules/zone.js/dist/zone.js',
+				'./node_modules/reflect-metadata/Reflect.js',
+				'./node_modules/systemjs/dist/system.src.js',
+				'./node_modules/jquery/dist/jquery.min.js'
+			],
+			dest: './dist/vendor/js'
+		}	
+	}
 };
 
-//sass
-gulp.task('sass', function(){
-	//specify source of sass files to compile
-	gulp.src(config.sass.src)
-		//compile the sass files, logging any errors that occur
-		.pipe(sass().on('error', sass.logError))
-		//where the compiled css ends up
-		.pipe(gulp.dest(config.sass.dest));
-});
+function handleError(error){
+	console.log(error.message);
+	console.log(this.emit);
+}
 
-//vendor css
-gulp.task('css', function(){
-	return gulp.src(config.css.src)
+//compilation
+gulp.task('styles', function(){
+	gulp.src(config.css.src)
+		.pipe(sass().on('error', handleError))
 		.pipe(gulp.dest(config.css.dest));
 });
 
-gulp.task('fonts', function(){
-	return gulp.src(config.fonts.src)
-		.pipe(gulp.dest(config.fonts.dest));
-});
-
-//mongodb start
-gulp.task('mongodb-start', function(){
-	process.exec('start mongod --dbpath ./data', function(error, stdout, stderr){
-		console.log(stdout);
-	});
-});
-
-//typescript
-gulp.task('ts:compile', function(){
+gulp.task('scripts', function(){
 	var project = ts.createProject('tsconfig.json');
 	
-	return gulp.src(config.typescript.src)
-		.pipe(ts(project));
+	return gulp.src(config.js.src)
+		.pipe(project())
+		.on('error', handleError)
+		.pipe(gulp.dest(config.js.dest));
 });
 
-gulp.task('move', ['sass','css','fonts'], function(){});
-
-gulp.task('sass:watch', function(){
-	gulp.watch(config.sass.src, ['sass']);
+//vendor assets
+gulp.task('css:move', function(){
+	return gulp.src(config.vendor.css.src)
+		.pipe(gulp.dest(config.vendor.css.dest));
 });
 
-gulp.task('default', ['move']);
+gulp.task('fonts:move', function(){
+	return gulp.src(config.vendor.fonts.src)
+		.pipe(gulp.dest(config.vendor.fonts.dest));
+});
+
+gulp.task('js:move', function(){
+	return gulp.src(config.vendor.js.src)
+		.pipe(gulp.dest(config.vendor.js.dest));
+});
+
+gulp.task('move', ['css:move','js:move','fonts:move']);
+
+//watch
+gulp.task('styles:watch', ['styles'], function(){
+	gulp.watch(config.css.src, ['styles']);
+});
+
+gulp.task('scripts:watch', ['scripts'], function(){
+	gulp.watch(config.js.src, ['scripts']);
+});
+
+gulp.task('watch', ['styles:watch', 'scripts:watch']);
+
+//environments
+gulp.task('development', ['move', 'watch', 'server']);
+gulp.task('production', ['move', 'styles', 'scripts', 'server']);
+
+//server
+gulp.task('server', function(){
+	var params = {
+		logLevel: 0,
+		ignore: 'api',
+		
+	};
+	
+	server.start(params);
+});
+
+gulp.task('default', ['development']);
