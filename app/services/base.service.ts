@@ -1,5 +1,4 @@
 import { Headers } from '@angular/http';
-import {Storage} from '../utilities/storage'
 
 export class BaseService{
 	
@@ -16,11 +15,12 @@ export class BaseService{
 	}
     
     public isLoggedIn():boolean{
-        return Storage.get("token") !== null;
+        return true;
+        //return Storage.get("token") !== null;
     }
     
     public logout():void{
-        Storage.remove("token");
+        //Storage.remove("token");
     }
 	
 }

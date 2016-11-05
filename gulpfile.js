@@ -57,8 +57,10 @@ gulp.task('scripts', function(){
 	var project = ts.createProject('tsconfig.json');
 	
 	return gulp.src(config.js.src)
-		.pipe(project(ts.reporter.nullReporter()).on('error', handleError))		
+		.pipe(project())	
+		.on('error', handleError)
 		.pipe(gulp.dest(config.js.dest));
+		
 });
 
 //vendor assets
@@ -99,7 +101,7 @@ gulp.task('server', function(){
 	var params = {
 		logLevel: 0,
 		ignore: 'api',
-		
+		host: 'localhost'
 	};
 	
 	server.start(params);

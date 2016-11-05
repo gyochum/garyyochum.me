@@ -1,7 +1,7 @@
 {	
 	"compilerOptions": {
-		"target": "es5",
-		"module": "commonjs",
+		"target": "es6",
+		"module": "system",
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"emitDecoratorMetadata": true,
@@ -9,10 +9,11 @@
 		"removeComments": false,
 		"noImplicitAny": false,
 		"suppressImplicitAnyIndexErrors": true,
-		"noEmit": true,
+		"noEmit": false,
 		"noEmitOnError": true
 	},
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"typings"
 	]
 }

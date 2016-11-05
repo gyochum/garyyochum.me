@@ -1,8 +1,36 @@
 import { BlogPost } from '../../app/models/blogpost';
 
 export const POSTS:Array<BlogPost> = [
-    new BlogPost("1", "http://www.cnn.com", "Gary First Post", "This is my preview!", "This is the body of the post!", true),
-    new BlogPost("2", "http://www.aol.com", "Gary Second Post", "This is my preview!", "This is the body of the post!", true),
-    new BlogPost("3", "http://www.football365.com", "Gary Third Post", "This is my preview!", "This is the body of the post!", true),
-    new BlogPost("4", "http://www.vox.com", "Gary Fourth Post", "This is my preview!", "This is the body of the post!", true)        
+    new BlogPost({
+        id: "1",
+        url: "http://www.cnn.com",
+        title: "Gary First Post", 
+        preview: "This is my preview!", 
+        body: "This is the body of the post!", 
+        isActive: true
+    }),
+    new BlogPost({
+        id: "1",
+        url: "http://www.cnn.com",
+        title: "Gary Second Post", 
+        preview: "This is my preview!", 
+        body: "This is the body of the post!", 
+        isActive: true
+    }),
+    new BlogPost({
+        id: "1",
+        url: "http://www.cnn.com",
+        title: "Gary Third Post", 
+        preview: "This is my preview!", 
+        body: "This is the body of the post!", 
+        isActive: true
+    }),
+    new BlogPost({
+        id: "1",
+        url: "http://www.aol.com",
+        title: "Gary Fourth Post", 
+        preview: "This is my preview!", 
+        body: "This is the body of the post!", 
+        isActive: true
+    })
 ];

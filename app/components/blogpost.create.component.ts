@@ -4,6 +4,8 @@ import { BlogPostService } from '../services/blog.service';
 import { ServiceResponse } from '../models/serviceResponse';
 import {Validator} from '@angular/forms';
 
+declare var toastr: any;
+
 @Component({
     selector: "post-create",
     templateUrl: "./app/views/blog/save.html"

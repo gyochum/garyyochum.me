@@ -4,7 +4,7 @@ export class ServiceResponse<T>{
     message: string;
     data: T;
     
-    constructor(_success:boolean, _message: string, _data: T){
+    constructor(_success:boolean = true, _message: string = '', _data: T = null){
         this.success = _success;
         this.message = _message;
         this.data = _data;

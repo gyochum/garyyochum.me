@@ -16,11 +16,9 @@ export class BlogsComponent implements OnInit {
     constructor(private service:BlogPostService){}
     
     ngOnInit() : any{
-        var response:ServiceResponse<BlogPost[]> = this.service.getPosts();
-        
-        if(response.success){
-            this.posts = response.data;
-        }
+         this.service.getPosts().then((posts: ServiceResponse<Array<BlogPost>>) => {
+             this.posts = posts.data;
+         });
     }
    
 }

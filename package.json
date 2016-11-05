@@ -8,7 +8,7 @@
     "typings": "typings install",
     "postinstall": "npm run typings",
     "api": "node-dev ./api/index.js",
-    "development": "concurrently \"npm run gulp development\"  \"npm run api\" ",
+    "start": "concurrently \"npm run gulp development\"  \"npm run api\" ",
     "production": "concurrently \"npm run gulp production\"  \"npm run api\" "
   },
   "keywords": [

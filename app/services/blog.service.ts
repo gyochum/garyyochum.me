@@ -5,7 +5,6 @@ import {Comment} from '../models/comment';
 import {BaseService} from './base.service';
 import { ServiceResponse } from '../models/serviceResponse';
 import { POSTS } from '../data/mock-blogposts';
-import {Storage} from '../utilities/storage';
 import {CookieService} from 'angular2-cookie/core';
 import 'rxjs/add/operator/toPromise';
 
@@ -18,17 +17,26 @@ export class BlogPostService extends BaseService{
         super();
 	}
 	
-    getPosts():ServiceResponse<Array<BlogPost>>{
-        var result:ServiceResponse<Array<BlogPost>> =  new ServiceResponse<Array<BlogPost>>(true, "", null);
+    getPosts():Promise<ServiceResponse<Array<BlogPost>>>{
+        var results:ServiceResponse<Array<BlogPost>> =  new ServiceResponse<Array<BlogPost>>();
         
-        result.success = true;
-        result.data = POSTS;
-        
-        return result;
+       return this.http.get(this.api)
+                        .toPromise()
+                        .then((response: Response) => {
+                           var posts = response.json(); 
+                           
+                           if(posts.success){
+                               results.data = posts.data.map((post: any, index: number) => {
+                                  return new BlogPost(post); 
+                               });
+                               
+                               return results;
+                           }
+                        });      
     }
     
 	getActivePosts(){
-        var token = Storage.get<string>("token");
+        var token = "TODO: get token";
                 
         if(token)
             this.headers.append("Authorization", 'Bearer ' + token.replace(/['"]+/g, ''));
@@ -95,10 +103,6 @@ export class BlogPostService extends BaseService{
     
     saveComment(comment: Comment){
        
-    }
-    
-    getAvatar(email: String){
-        
     }
     
     private mapComments(comments: Array<any>): Array<Comment> {

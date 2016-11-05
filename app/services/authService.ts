@@ -1,29 +1,21 @@
-import { Inject, Observable } from 'angular2/angular2';
-import { Http, Response } from 'angular2/http';
-import { BaseService } from './concrete/baseService';
-import { Provider } from '../models/provider';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { BaseService } from './base.service';
+import 'rxjs/add/operator/toPromise';
 
+@Injectable()
 export class AuthService extends BaseService{
     
-    constructor(@Inject(Http) public http:Http){
+    constructor(private http:Http){
         super();
     }
     
-    getOAuthSettings(): Observable<Provider>{
+    getOAuthSettings(): any{
         return this.http.get(this.baseApiUrl + '/settings')
-            .map((response: Response) => {
+            .toPromise()
+            .then((response: Response) => {
                 return response.json();
-            })
-            .map((provider: any) => {
-                let result: Provider = new Provider();
-                
-                result.authorizationUrl = provider.providers.github.authorizeUrl;
-                result.clientId = provider.providers.github.clientId;
-                result.redirectUrl = provider.providers.github.redirectUrl;
-                result.scope = provider.providers.github.scope;
-                
-                return result;
-            });
+            });            
     }
     
 }

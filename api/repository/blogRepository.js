@@ -4,7 +4,12 @@ var model = require('../models/blog');
 var Comment = require('../models/comment');
 var ObjectId = require('mongoose').Types.ObjectId;
 
-exports.all = function(request, response, next){    
+exports.all = function(request, response, next){  
+    var result = {
+        success: true,
+        message: '',
+        data: null   
+    };
     var header = request.get('Authorization');
     var query = model.find({
                     "active": "true"
@@ -23,26 +28,32 @@ exports.all = function(request, response, next){
                query = null; 
             }
         }
-        catch(ex){
-            console.log(ex);
+        catch(error){
+            return next(error)
         }
     }
     
     if(!query){
         //verified as admin - get all blog posts
-        model.find(function(error, results){
-            if(error)
+        model.find(function(error, posts){
+            if(error){
                 return next(error);
+            }
             
-            return response.send(results);
+            result.data = posts;
+            
+            return response.send(result);
         });
     }
     else{
         query.exec(function(error, posts){
-            if(error)
+            if(error){
                 return next(error);
+            }
             
-            return response.send(posts);
+            result.data = posts;
+            
+            return response.send(result);
         });
     }
 		
