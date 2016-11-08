@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BlogPost } from '../models/blogpost';
-import { BlogPostService } from '../services/blog.service';
-import { ServiceResponse } from '../models/serviceResponse';
+import { BlogPost } from '../../models/blogpost';
+import { BlogPostService } from './blog.service';
+import { ServiceResponse } from '../../models/serviceResponse';
 
 @Component({
     selector: 'app',
-    templateUrl: './app/views/blog/index.html'    
+    templateUrl: './blogs.component.html'    
 })
 
 export class BlogsComponent implements OnInit { 

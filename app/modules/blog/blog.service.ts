@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
-import {BlogPost} from '../models/blogpost';
-import {Comment} from '../models/comment';
-import {BaseService} from './base.service';
-import { ServiceResponse } from '../models/serviceResponse';
-import { POSTS } from '../data/mock-blogposts';
+import {BlogPost} from '../../models/blogpost';
+import {Comment} from '../../models/comment';
+import {BaseService} from '../shared/base.service';
+import { ServiceResponse } from '../../models/serviceResponse';
+import { POSTS } from '../../data/mock-blogposts';
 import {CookieService} from 'angular2-cookie/core';
 import 'rxjs/add/operator/toPromise';
 

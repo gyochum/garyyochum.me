@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BlogsComponent } from '../components/blogs.component';
-import { BlogCreateComponent } from '../components/blogpost.create.component';
-import { BlogPostService } from '../services/blog.service';
-import { BlogRouting } from '../routes/blog.routes';
+import { BlogsComponent } from './blogs.component';
+import { BlogCreateComponent } from './blogpost.create.component';
+import { BlogPostService } from './blog.service';
+import { BlogRouting } from './blog.routes';
 
 @NgModule({
     imports: [CommonModule, FormsModule, BlogRouting],

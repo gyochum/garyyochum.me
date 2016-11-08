@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BlogPost } from '../models/blogpost';
-import { BlogPostService } from '../services/blog.service';
-import { ServiceResponse } from '../models/serviceResponse';
+import { BlogPost } from '../../models/blogpost';
+import { BlogPostService } from './blog.service';
+import { ServiceResponse } from '../../models/serviceResponse';
 import {Validator} from '@angular/forms';
 
 declare var toastr: any;
 
 @Component({
     selector: "post-create",
-    templateUrl: "./app/views/blog/save.html"
+    templateUrl: "./blog-save.component.html"
 })
 
 export class BlogCreateComponent implements OnInit{

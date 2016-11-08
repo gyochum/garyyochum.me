@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { BaseService } from './base.service';
+import { BaseService } from '../modules/shared/base.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()

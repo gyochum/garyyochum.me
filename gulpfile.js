@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var ts = require('gulp-typescript');
 var server = require('live-server');
+var rimraf = require('rimraf');
 
 var config = {
 	css: {
@@ -13,7 +14,7 @@ var config = {
 		dest: './dist/js'	
 	},
 	html: {
-		src: './app/**/*.html'	
+		src: './app/modules/**/*.html'	
 	},
 	vendor: {
 		css: {
@@ -42,18 +43,29 @@ var config = {
 };
 
 function handleError(error){
-	console.log(error.message);
-	this.emit('end');
+	if(error){
+		console.log(error.message);
+		this.emit('end');	
+	}	
 }
 
+//clean
+gulp.task('css:clean', function(){	
+	rimraf(config.css.dest + '/**/*.scss', handleError);
+});
+
+gulp.task('js:clean', function(){
+	rimraf(config.js.dest + '/**/*', handleError);
+});
+
 //compilation
-gulp.task('styles', function(){
+gulp.task('styles', ['css:clean'], function(){
 	gulp.src(config.css.src)
 		.pipe(sass().on('error', handleError))
 		.pipe(gulp.dest(config.css.dest));
 });
 
-gulp.task('scripts', function(){
+gulp.task('scripts', ['js:clean', 'html:move'], function(){
 	var project = ts.createProject('tsconfig.json');
 	
 	return gulp.src(config.js.src)
@@ -80,6 +92,12 @@ gulp.task('js:move', function(){
 });
 
 gulp.task('move', ['css:move','js:move','fonts:move']);
+
+//html views
+gulp.task('html:move', function(){
+	return gulp.src(config.html.src)
+		.pipe(gulp.dest(config.js.dest));
+});
 
 //watch
 gulp.task('styles:watch', ['styles'], function(){
