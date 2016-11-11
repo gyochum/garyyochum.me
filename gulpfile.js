@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var ts = require('gulp-typescript');
 var server = require('live-server');
 var rimraf = require('rimraf');
+var runSequence = require('run-sequence');
 
 var config = {
 	css: {
@@ -14,7 +15,8 @@ var config = {
 		dest: './dist/js'	
 	},
 	html: {
-		src: './app/modules/**/*.html'	
+		src: './app/modules/**/*.html',
+		dest: './dist/js/modules'	
 	},
 	vendor: {
 		css: {
@@ -55,7 +57,13 @@ gulp.task('css:clean', function(){
 });
 
 gulp.task('js:clean', function(){
-	rimraf(config.js.dest + '/**/*', handleError);
+	rimraf(config.js.dest + '/*', handleError);
+});
+
+//html views
+gulp.task('html:move', function(){
+	return gulp.src(config.html.src)
+		.pipe(gulp.dest(config.html.dest));
 });
 
 //compilation
@@ -65,14 +73,17 @@ gulp.task('styles', ['css:clean'], function(){
 		.pipe(gulp.dest(config.css.dest));
 });
 
-gulp.task('scripts', ['js:clean', 'html:move'], function(){
+gulp.task('scripts:build', function(){
 	var project = ts.createProject('tsconfig.json');
 	
 	return gulp.src(config.js.src)
 		.pipe(project())	
 		.on('error', handleError)
-		.pipe(gulp.dest(config.js.dest));
-		
+		.pipe(gulp.dest(config.js.dest));		
+});
+
+gulp.task('scripts', function(){
+	runSequence('js:clean', 'scripts:build', 'html:move');
 });
 
 //vendor assets
@@ -93,19 +104,13 @@ gulp.task('js:move', function(){
 
 gulp.task('move', ['css:move','js:move','fonts:move']);
 
-//html views
-gulp.task('html:move', function(){
-	return gulp.src(config.html.src)
-		.pipe(gulp.dest(config.js.dest));
-});
-
 //watch
 gulp.task('styles:watch', ['styles'], function(){
 	gulp.watch(config.css.src, ['styles']);
 });
 
 gulp.task('scripts:watch', ['scripts'], function(){
-	gulp.watch(config.js.src, ['scripts']);
+	gulp.watch([config.js.src, config.html.src], ['scripts']);
 });
 
 gulp.task('watch', ['styles:watch', 'scripts:watch']);
@@ -119,7 +124,8 @@ gulp.task('server', function(){
 	var params = {
 		logLevel: 0,
 		ignore: 'api',
-		host: 'localhost'
+		host: 'localhost',
+		entryFile: 'index.hmtl'
 	};
 	
 	server.start(params);

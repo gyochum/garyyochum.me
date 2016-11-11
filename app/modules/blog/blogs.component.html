@@ -1,7 +1,7 @@
 <a routerLink="/blog/create">add a new post</a>
 <article *ngFor="let post of posts">    
     <h1 class="title">
-        <a href="">{{post.title}}</a> 
+        <a [routerLink]="['/blog/detail', post.url]">{{post.title}}</a> 
         <!--<a href = "" *ng-if="isLoggedIn" class="fa fa-pencil"></a>  
         <i class="fa fa-trash" *ng-if="isLoggedIn" (click)="delete(post.id)"></i> -->
         <i class="fa fa-check-circle-o green" *ngIf="post.isActive && isLoggedIn" title="active"></i>

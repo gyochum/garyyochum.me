@@ -5,7 +5,7 @@ import { ServiceResponse } from '../../models/serviceResponse';
 
 @Component({
     selector: 'app',
-    templateUrl: './blogs.component.html'    
+    templateUrl: './dist/js/modules/blog/blogs.component.html'
 })
 
 export class BlogsComponent implements OnInit { 

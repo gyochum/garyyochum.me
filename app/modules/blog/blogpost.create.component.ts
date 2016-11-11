@@ -8,7 +8,7 @@ declare var toastr: any;
 
 @Component({
     selector: "post-create",
-    templateUrl: "./blog-save.component.html"
+    templateUrl: "./dist/js/modules/blog/blog-save.component.html"
 })
 
 export class BlogCreateComponent implements OnInit{

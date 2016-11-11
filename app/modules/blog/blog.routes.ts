@@ -7,7 +7,7 @@ import { BlogCreateComponent } from './blogpost.create.component';
 const blogRoutes: Routes  = [
   { path: '', redirectTo: '/blog', pathMatch: 'full' },
   { path: 'blog', component: BlogsComponent },
-  { path: 'blog/:url', component: BlogDetailComponent },
+  { path: 'blog/detail/:url', component: BlogDetailComponent },
   { path: 'blog/create', component: BlogCreateComponent }
 ];
 
