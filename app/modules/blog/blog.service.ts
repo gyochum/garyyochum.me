@@ -23,7 +23,7 @@ export class BlogPostService extends BaseService{
        return this.http.get(this.api)
                         .toPromise()
                         .then((response: Response) => {
-                           var posts = response.json(); 
+                           let posts = response.json(); 
                            
                            if(posts.success){
                                results.data = posts.data.map((post: any, index: number) => {
@@ -35,47 +35,24 @@ export class BlogPostService extends BaseService{
                         });      
     }
     
-	getActivePosts(){
-        var token = "TODO: get token";
-                
-        if(token)
-            this.headers.append("Authorization", 'Bearer ' + token.replace(/['"]+/g, ''));
-        
-        
-        
-		return this.http.get(this.baseApiUrl + '/blogs', { headers: this.headers })
-            .toPromise()
-            .then(response => {
-                
-            });
-            
-			/*.map(r => {
-				return (<Response>r).json();
-			})
-			.map((posts: Array<any>) => {
-				let result: Array<BlogPost> = [];
-				if(posts){
-					posts.forEach((post) => {
-						var blogPost = new BlogPost();
-						
-                        blogPost.id = post._id;
-                        blogPost.url = post.url;
-						blogPost.title = post.title;
-						blogPost.body = post.body;
-						blogPost.isActive = post.active;
-						blogPost.createdDate = new Date(post.created);
-						blogPost.tags = post.tags;
-                        blogPost.comments = this.mapComments(post.comments);
-						
-						result.push(blogPost);
-					})
-				}
-				return result;
-			});	*/				
-	}
-    
-    getBlogPost(id: string){
-        
+    getBlogPost(url: string):Promise<ServiceResponse<BlogPost>>{               
+        return this.http.get(this.api + '/' + url)
+                .toPromise()
+                .then((response: Response) => {
+                    let json = response.json();
+                    let result = new ServiceResponse<BlogPost>();
+                    
+                    if(json.success){
+                       let post = new BlogPost(json.data);
+                       result.data = post; 
+                    }
+                    else{
+                        result.success = json.success;
+                        result.message = json.message;
+                    }
+                    
+                    return result;
+                });       
     }
     
     save(post: BlogPost): Promise<ServiceResponse<BlogPost>>{

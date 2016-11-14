@@ -60,22 +60,21 @@ exports.all = function(request, response, next){
 }
 
 exports.detail = function(request, response, next){
-	var id = request.params.id;
+	var url = request.params.url;
     
     var query = model.find({
-        "url": id
+        "url": url
     }).limit(1);
     
     query.exec(function(error, post){
         if(error)
 			return next(error);
 		
-		try{
-			return response.send(post);	
-		}
-		catch(e){
-			response.send('error: ' + e);
-		}
+		return response.send({
+            success: true,
+            message: '',
+            data: post[0]
+        });	
     });	
 }
 

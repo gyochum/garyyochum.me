@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {BlogPost} from '../../models/blogpost';
 import {BlogPostService} from './blog.service';
+import {ServiceResponse} from '../../models/serviceResponse';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -12,15 +13,22 @@ import 'rxjs/add/operator/map';
 
 export class BlogDetailComponent implements OnInit{
 	
-	post: BlogPost;
+	post: BlogPost = new BlogPost(null);
 	
 	constructor(private route:ActivatedRoute, private service:BlogPostService){
 		
 	}
 	
 	ngOnInit(){
-		var url = this.route.queryParams.map(p => p['url']);
-		console.log(url);
+		this.route.params.forEach((params: Params) => {
+			let url  = params['url'];
+			
+			this.service.getBlogPost(url).then((response: ServiceResponse<BlogPost>) => {
+				if(response.success){
+					this.post = response.data;
+				}
+			});
+		});
 	}
 	
 }

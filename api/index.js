@@ -55,7 +55,7 @@ var oauthRepository = require('./repository/oauthRepository');
 
 //public routes
 api.get('/api/blogs', blogRepository.all);
-api.get('/api/blogs/:id', blogRepository.detail);
+api.get('/api/blogs/:url', blogRepository.detail);
 api.post('/api/comments', blogRepository.addComment);
 api.get('/api/authenticate', oauthRepository.authenticate);
 api.get('/api/settings', oauthRepository.settings);
@@ -68,14 +68,15 @@ api.put('/api/comments/:id', blogRepository.updateComment);
 
 //set up error handling function
 api.use(function(error, request, response, next){
+   console.log(error);
     applicationError.create({
         name: error.name,
-        message: erorr.message,
+        message: error.message,
         stack: error.stack
     }, function(err, doc){
         return response.json({
            success: false,
-           message: 'an error occurred',
+           message: err.message,
            data: null
         });
     });
