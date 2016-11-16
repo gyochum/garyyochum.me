@@ -13,7 +13,8 @@ exports.all = function(request, response, next){
     var header = request.get('Authorization');
     var query = model.find({
                     "active": "true"
-                });
+                })
+                .select('url title preview created');
     
     if(header){
         console.log('header sent');
@@ -35,7 +36,7 @@ exports.all = function(request, response, next){
     
     if(!query){
         //verified as admin - get all blog posts
-        model.find(function(error, posts){
+        model.find().select('url title preview created').exec(function(error, posts){
             if(error){
                 return next(error);
             }
@@ -146,33 +147,39 @@ exports.addComment = function(request, response, next){
     var comment = request.body;
         
     if(comment){
-        var url = comment.blogPostId;
+        var id = comment.blogPostId;
         var newComment = new Comment();
-
-        newComment.set({
-            name: comment.name,
-            email: comment.email,
-            body: comment.body,
-            created: Date.now()
-        });
+        newComment.set('name', comment.name);
+        newComment.set('email', comment.email);
+        newComment.set('body', comment.body);
+        newComment.set('created', comment.created);
         
-        model.findOneAndUpdate({
-            url: url
-        }, {
+        console.log(newComment);
+        
+        model.update({
+            _id: id
+        }, 
+        {
             $push: {
                 comments: newComment
-            }            
-        },
-        {
+            }
+        }, {
             safe: true,
-            upsert: false,
+            upsert: true,
             new: true
         }, function(error, post){
-            if (error)
-                console.log(error);
-                
-            response.send(post.comments);
-        })
+           if(error){
+               next(error);
+           } 
+           
+           console.log(post);
+           
+           response.send({
+               success: true,
+               message: '',
+               data: post.comments
+           })
+        });
     }    
         
 }

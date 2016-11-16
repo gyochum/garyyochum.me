@@ -78,27 +78,25 @@ export class BlogPostService extends BaseService{
                            
     }
     
-    saveComment(comment: Comment){
-       
+    saveComment(comment: Comment):Promise<ServiceResponse<Array<Comment>>>{
+       return this.http.post(this.baseApiUrl + '/comment', JSON.stringify(comment))
+                .toPromise()
+                .then((response:Response) => {
+                    let results: ServiceResponse<Array<Comment>>;
+                    let comments:any = response.json();
+                    
+                    if(comments.success && comments.data){
+                        results = new ServiceResponse<Array<Comment>>(true, '', new Array<Comment>());
+                        comments.data.forEach((comment:any) =>{
+                           results.data.push(new Comment(comment)); 
+                        });
+                    }
+                    else{
+                        results = new ServiceResponse<Array<Comment>>(false, 'unable to save comment', null);
+                    }
+                    
+                    return results;
+                });
     }
     
-    private mapComments(comments: Array<any>): Array<Comment> {
-        var results: Array<Comment> = new Array<Comment>();
-        
-        if (comments){
-            comments.forEach(c => {
-                var comment = new Comment();
-                
-                comment.id = c._id;
-                comment.name = c.name;
-                comment.body = c.body;
-                comment.createdDate = new Date(c.created);
-                
-                results.push(comment);
-            });
-        }
-        
-        return results;
-    }
-	
 }

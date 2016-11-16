@@ -1,48 +1,46 @@
-
+<section>
     <h1 class="title">
         {{post.title}}     
     </h1>
-    <!--<p class="meta-data">
-        <!--{{post.createdDate | date: 'yMMMMd'}}   
+    <p class="meta-data">
+        {{post.createdDate | date: 'yMMMMd'}}   
         <span *ngIf="post.commentCount() > 0"><a href="#comments">{{post.commentCount()}} Comment(s)</a></span>
-        <span *ngIf="post.commentCount() <= 0"><a href="#add">Leave a Comment</a></span>     
+        <span *ngIf="post.commentCount() <= 0"><a href="#add" (click)="showCommentForm()">Leave a Comment</a></span>     
     </p>
     <p>{{post.body}}</p>
 </section>
-<section>
+<section *ngIf="post.commentCount() > 0">
     <h3><a name="comments">Comments</a></h3>
-    <ol *ng-for="#comment of post.comments | orderby: 'createdDate': 'asc'">
+    <ol *ngFor="let comment of post.comments | orderby: 'createdDate': 'asc'">
         <li class="comment">
             <header>
                 <img src="http://placecage.com/56/56" alt="#post.name" class="avatar" />
                 <span>{{comment.name}} says</span>
-                <span>{{comment.createdDate | date: 'yMMMMd'}}
+                <span>{{comment.createdDate | date: 'yMMMMd'}}</span>
                 <i class="fa fa-trash" (click)="deleteComment(comment.id)"></i>
             </header>
             <div>{{comment.body}}</div>    
         </li>
     </ol>
 </section>
-<section>
+<section *ngIf="comment || !post.comments">
     <h1 class="title"><a name="add">Drop a Line</a></h1>
-    <form [ng-form-model]="commentForm" (submit)="saveComment()" novalidate>
-        <input name="blogPostId" type='hidden' ng-control="blogPostId" />
+    <form #commentForm="ngForm"  (submit)="saveComment()" novalidate>        
         <label for="name">
             Name <span>*</span>
         </label>
-        <input name="name" ng-control="name" placeholder="enter your name" type="text" />
-        
+        <input name="name" [(ngModel)]="comment.name" #name="ngModel" placeholder="enter your name" type="text" [class.error]="name.touched && email.invalid" required />
+        <span class="error-text" [hidden]="name.valid || name.pristine">your name is required duh.</span>
         <label for="email">
             Email <span>*</span>
         </label>
-        <input name="email" ng-control="email" (blur)="getAvatar()" placeholder="enter your email" type="text" />
-        <span><img src="" *ng-if="avatar" /></span>
-        
+        <input name="email" [(ngModel)]="comment.email" [class.error]="email.touched && email.invalid" #email="ngModel" placeholder="enter your email" type="text" />
+         <span class="error-text" [hidden]="email.valid || email.pristine">your comment is required duh.</span>      
         <label for="body">
             Body <span>*</span>
         </label>
-        <textarea name="body" ng-control="body" placeholder="enter body of post" rows="10" cols="45"></textarea>
-        
-        <button type="submit">Save</button>
+        <textarea name="body" [(ngModel)]="comment.body" placeholder="enter body of post" #body="ngModel" [class.error]="body.touched && body.invalid" rows="10" cols="45"></textarea>
+        <span class="error-text" [hidden]="body.valid || body.pristine">your thoughts is required duh.</span>
+        <button type="submit" [disabled]="!commentForm.form.valid">Save Comment</button>
     </form>
-</section>-->
+</section>

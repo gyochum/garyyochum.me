@@ -16,20 +16,20 @@ export class BlogPost{
 	//ctor
 	constructor(data:any){
 		if(data){
-			if(data.id) this.id = data.id;
-			if(data.url) this.url = data.url;
-			if(data.title) this.title = data.title;
-			if(data.preview) this.preview = data.preview;
-			if(data.body) this.body = data.body;
-			if(data.isActive) this.isActive = data.isActive;
-			this.createdDate = data.createdDate;
+			this.id = data._id ? data._id : null;
+			this.url = data.url ? data.url : null;
+			this.title = data.title ? data.title : null;
+			this.preview = data.preview ? data.preview : null;
+			this.body = data.body ? data.body : null;
+			this.isActive = data.isActive ? data.isActive : false;
+			this.createdDate = data.createdDate ? data.createdDate : new Date();
 			
 			if(data.tags){
 				this.tags = data.tags as Array<string>;
 			}
 			
 			if(data.comments){
-				
+				this.comments = this._map(data.comments);
 			}	
 		}		
 	}
@@ -40,4 +40,14 @@ export class BlogPost{
         else
             return 0;    
     }
+	
+	private _map(comments:any):Array<Comment>{
+		let results:Array<Comment> = new Array<Comment>();
+		
+		results = comments.map((comment:Comment) => {
+			return new Comment(comment);
+		});
+		
+		return results;
+	}
 }

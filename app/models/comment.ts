@@ -6,6 +6,14 @@ export class Comment{
 	email: string;
 	createdDate: Date;
 	body: string;
-	gravatarUrl: string;
-	
+
+	constructor(data){
+		if(data){
+			this.id = data.id ? data.id : null;
+			this.blogPostId = data.blogPostId ? data.blogPostId : null;
+			this.name = data.name ? data.name : null;
+			this.email = data.email ? data.email : null;
+			this.createdDate = data.created ? data.created : new Date();	
+		}		
+	}	
 }

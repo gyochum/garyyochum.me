@@ -56,7 +56,7 @@ var oauthRepository = require('./repository/oauthRepository');
 //public routes
 api.get('/api/blogs', blogRepository.all);
 api.get('/api/blogs/:url', blogRepository.detail);
-api.post('/api/comments', blogRepository.addComment);
+api.post('/api/comment', blogRepository.addComment);
 api.get('/api/authenticate', oauthRepository.authenticate);
 api.get('/api/settings', oauthRepository.settings);
 

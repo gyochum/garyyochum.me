@@ -29,7 +29,7 @@ export class BlogCreateComponent implements OnInit{
                 toastr.success('blog post ' + response.data.title + ' saved.');
             }
             else{
-                toastr.success(response.message, 'save error');
+                toastr.error(response.message, 'save error');
             }
         });
     }
