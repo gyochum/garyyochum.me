@@ -13,6 +13,7 @@ export class Comment{
 			this.blogPostId = data.blogPostId ? data.blogPostId : null;
 			this.name = data.name ? data.name : null;
 			this.email = data.email ? data.email : null;
+			this.body = data.body ? data.body : null;
 			this.createdDate = data.created ? data.created : new Date();	
 		}		
 	}	

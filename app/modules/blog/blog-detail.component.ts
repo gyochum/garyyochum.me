@@ -41,6 +41,7 @@ export class BlogDetailComponent implements OnInit{
 		this.service.saveComment(this.comment).then((comments:ServiceResponse<Array<Comment>>) => {
 			if(comments.success){
 				this.post.comments = comments.data;
+				this.comment = new Comment(null);
 				toastr.success('comment saved sucessfully');	
 			}
 			else{

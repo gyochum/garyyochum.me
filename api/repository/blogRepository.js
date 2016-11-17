@@ -144,7 +144,7 @@ exports.delete = function(request, response, next){
 }
 
 exports.addComment = function(request, response, next){
-    var comment = request.body;
+    var comment = request.body;   
         
     if(comment){
         var id = comment.blogPostId;
@@ -154,9 +154,7 @@ exports.addComment = function(request, response, next){
         newComment.set('body', comment.body);
         newComment.set('created', comment.created);
         
-        console.log(newComment);
-        
-        model.update({
+        model.findOneAndUpdate({
             _id: id
         }, 
         {
@@ -164,15 +162,12 @@ exports.addComment = function(request, response, next){
                 comments: newComment
             }
         }, {
-            safe: true,
             upsert: true,
             new: true
         }, function(error, post){
            if(error){
                next(error);
            } 
-           
-           console.log(post);
            
            response.send({
                success: true,

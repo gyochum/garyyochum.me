@@ -79,7 +79,7 @@ export class BlogPostService extends BaseService{
     }
     
     saveComment(comment: Comment):Promise<ServiceResponse<Array<Comment>>>{
-       return this.http.post(this.baseApiUrl + '/comment', JSON.stringify(comment))
+       return this.http.post(this.baseApiUrl + '/comment', JSON.stringify(comment), {headers: this.headers})
                 .toPromise()
                 .then((response:Response) => {
                     let results: ServiceResponse<Array<Comment>>;
