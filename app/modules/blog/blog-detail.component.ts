@@ -50,8 +50,8 @@ export class BlogDetailComponent implements OnInit{
 		})
 	}
 	
-	deleteComment(id:string){
-		
+	deleteComment(comment:Comment){
+		console.log('todo: delete the comment');
 	}
 	
 }

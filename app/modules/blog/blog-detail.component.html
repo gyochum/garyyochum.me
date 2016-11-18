@@ -17,7 +17,10 @@
                 <img src="http://placecage.com/56/56" alt="#post.name" class="avatar" />
                 <span>{{comment.name}} says</span>
                 <span>{{comment.createdDate | date: 'yMMMMd'}}</span>
-                <i class="fa fa-trash" (click)="deleteComment(comment.id)"></i>
+                <span class="operations">
+                    <span (click)="editComment(comment)">edit</span>
+                    <span (click)="deleteComment(comment)">delete</span>
+                </span>
             </header>
             <div>{{comment.body}}</div>    
         </li>
