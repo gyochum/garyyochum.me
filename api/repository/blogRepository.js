@@ -63,9 +63,9 @@ exports.all = function(request, response, next){
 exports.detail = function(request, response, next){
 	var url = request.params.url;
     
-    var query = model.find({
+    var query = model.findOne({
         "url": url
-    }).limit(1);
+    });
     
     query.exec(function(error, post){
         if(error)
@@ -74,7 +74,7 @@ exports.detail = function(request, response, next){
 		return response.send({
             success: true,
             message: '',
-            data: post[0]
+            data: post
         });	
     });	
 }
@@ -88,7 +88,7 @@ exports.save = function(request, response, next){
         url: post.url,
         preview: post.preview,
         body: post.body			
-    }, function(err, doc){
+    }, function(err, post){
         if(err)
             return next(err);
             
@@ -118,10 +118,15 @@ exports.update = function(request, response, next){
         {            
             new: true
         }, function(error, post){
-            result["error"] = error;
-            result["post"] = post;
-                
-            response.send(result);
+            if(error){
+                return next(error);    
+            }
+            
+            return response.json({
+                success: true,
+                message: '',
+                data: post 
+            });
         })
  }
  

@@ -21,7 +21,7 @@ export class BlogPost{
 			this.title = data.title ? data.title : null;
 			this.preview = data.preview ? data.preview : null;
 			this.body = data.body ? data.body : null;
-			this.isActive = data.isActive ? data.isActive : false;
+			this.isActive = data.active ? data.active : false;
 			this.createdDate = data.createdDate ? data.createdDate : new Date();
 			
 			if(data.tags){

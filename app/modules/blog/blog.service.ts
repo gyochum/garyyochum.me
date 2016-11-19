@@ -71,7 +71,18 @@ export class BlogPostService extends BaseService{
     }
     
     update(post: BlogPost){ 
+        var token:string = this.cookieService.get("token");        
         
+        if(token)
+            this.headers.append("Authorization", 'Bearer ' + token);
+        
+        return this.http.put(this.baseApiUrl + '/blogs/' + post.id, JSON.stringify(post), { headers: this.headers })
+                        .toPromise()
+                        .then((response: Response) => {
+                            var result = response.json();
+                            
+                            return new ServiceResponse<BlogPost>(result.success, result.message, result.data);
+                        });
     }
     
     delete(id: string){
