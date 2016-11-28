@@ -9,7 +9,7 @@ export class Comment{
 
 	constructor(data){
 		if(data){
-			this.id = data.id ? data.id : null;
+			this.id = data._id ? data._id : null;
 			this.blogPostId = data.blogPostId ? data.blogPostId : null;
 			this.name = data.name ? data.name : null;
 			this.email = data.email ? data.email : null;
