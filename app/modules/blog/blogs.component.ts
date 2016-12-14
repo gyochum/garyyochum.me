@@ -20,5 +20,9 @@ export class BlogsComponent implements OnInit {
              this.posts = posts.data;
          });
     }
+    
+    delete(post: BlogPost){
+        console.log(post);
+    }
    
 }

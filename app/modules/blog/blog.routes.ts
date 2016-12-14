@@ -2,7 +2,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BlogsComponent } from './blogs.component';
 import {BlogDetailComponent} from './blog-detail.component';
-import { BlogSaveComponent } from './blogpost.save.component';
+import { BlogSaveComponent } from './blog-save.component';
 
 const blogRoutes: Routes  = [
   { path: '', redirectTo: '/blog', pathMatch: 'full' },

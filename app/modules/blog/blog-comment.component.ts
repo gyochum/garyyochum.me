@@ -9,11 +9,16 @@ import {BlogPostService} from './blog.service';
                 '<span>{{comment.name}} says</span>' +
                '<span>{{comment.createdDate | date: "yMMMMd"}}</span>' +
                 '<span class="operations">' +
-                    '<span (click)="update(comment)">edit</span>' +
+                    '<span (click)="edit()">edit</span> ' +
                     '<span (click)="delete(comment)">delete</span>' +
                 '</span>' +
             '</header>' +
-            '<div>{{comment.body}}</div>'
+            '<div *ngIf="!inEditMode">{{comment.body}}</div>' + 
+			'<div *ngIf="inEditMode">' + 
+			'<input type="text" [(ngModel)]="comment.body"  />' + 
+			'<button (click)="update(comment)">update</button>' + 
+			'<button (click)="cancel()">cancel</button>' + 
+			'</div>'
 })
 
 export class BlogCommentComponent{
@@ -25,8 +30,16 @@ export class BlogCommentComponent{
 	
 	constructor(private service:BlogPostService){}
 	
+	edit(){
+		this.inEditMode = true;
+	}
+	
+	cancel(){
+		this.inEditMode = false;
+	}
+	
 	update(comment: Comment){
-		console.log('edit!!!!');
+		console.log(comment);
 	}
 	
 	delete(comment: Comment){

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BlogsComponent } from './blogs.component';
-import { BlogSaveComponent } from './blogpost.save.component';
+import { BlogSaveComponent } from './blog-save.component';
 import {BlogDetailComponent } from './blog-detail.component';
 import {BlogCommentComponent} from './blog-comment.component';
 import { BlogPostService } from './blog.service';

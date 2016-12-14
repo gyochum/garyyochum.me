@@ -14,7 +14,7 @@ exports.all = function(request, response, next){
     var query = model.find({
                     "active": "true"
                 })
-                .select('url title preview created');
+                .select('url title preview created active');
     
     if(header){
         console.log('header sent');
@@ -36,7 +36,7 @@ exports.all = function(request, response, next){
     
     if(!query){
         //verified as admin - get all blog posts
-        model.find().select('url title preview created').exec(function(error, posts){
+        model.find().select('url title preview created active').exec(function(error, posts){
             if(error){
                 return next(error);
             }

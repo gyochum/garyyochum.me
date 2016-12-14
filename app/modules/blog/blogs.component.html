@@ -3,10 +3,11 @@
     <h1 class="title">
         <a [routerLink]="['/blog/detail', post.url]">{{post.title}}</a> 
         <a [routerLink] = "['/blog/edit/', post.url]" class="fa fa-pencil"></a>  
-        <!--<i class="fa fa-trash" *ng-if="isLoggedIn" (click)="delete(post.id)"></i> -->
-        <i class="fa fa-check-circle-o green" *ngIf="post.isActive && isLoggedIn" title="active"></i>
-        <i class="fa fa-times-circle-o red" *ngIf="!post.isActive && isLoggedIn" title="inactive"></i>    
+        <i class="fa fa-trash" (click)="delete(post)"></i> 
+        <i class="fa fa-check-circle-o green" *ngIf="post.isActive" title="active"></i>
+        <i class="fa fa-times-circle-o red" *ngIf="!post.isActive" title="inactive"></i>    
     </h1>
+    <p>{{post.isActive}}</p>
     <p class="meta-data">
         {{post.createdDate | date: 'yMMMMd'}} - 
         <span *ngIf="post.commentCount() > 0">{{post.commentCount()}} comments</span>
