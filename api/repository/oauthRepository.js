@@ -16,9 +16,13 @@ exports.settings = function(request, response, next){
           }
       }  
     });
+};
+
+exports.authenticate = function authenticate(accessToken, refreshToken, profile, callback) {
+    
 }
 
-exports.authenticate = function(req, response, next){
+exports.authenticate_old = function(req, response, next){
     var code = req.query.code;
     
     if(code){

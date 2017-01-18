@@ -5,10 +5,19 @@ var jwt = require('jsonwebtoken');
 var eJwt = require('express-jwt');
 var cors = require('cors');
 var helmet = require('helmet');
+var passport = require('passport');
+var googleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 var settings = require('./settings');
 var applicationError = require('./models/error');
 var api = express();
+
+//passport config
+passport.use(new googleStrategy({
+    clientID: '',
+    clientSecret: '',
+    callbackURL: ''
+}))
 
 api.use(bodyParser.urlencoded({ extended: false }));
 api.use(bodyParser.json());
