@@ -25,7 +25,7 @@ img{
 }
 
 .site-loader{
-    font-size: 20em !important;
+    font-size: 10em !important;
     margin: 10% 45%;
 }
 
@@ -97,6 +97,7 @@ img{
     color: #ccc;    
     font-size: 1.25em;
     transition: ease 0.5s width;
+    cursor: pointer;
     
     &:hover{
         width: 20px;                

@@ -6,18 +6,18 @@ var eJwt = require('express-jwt');
 var cors = require('cors');
 var helmet = require('helmet');
 var passport = require('passport');
+var session = require('express-session');
+var passportConfig = require('./config/passport');
 var googleStrategy = require('passport-google-oauth20').Strategy;
-require('dotenv').config();
-var settings = require('./settings');
+var settings = require('./config/settings');
 var applicationError = require('./models/error');
 var api = express();
 
-//passport config
-passport.use(new googleStrategy({
-    clientID: '',
-    clientSecret: '',
-    callbackURL: ''
-}))
+//get repository modules
+var blogRepository = require('./repository/blogRepository');
+var oauthRepository = require('./repository/oauthRepository');
+
+
 
 api.use(bodyParser.urlencoded({ extended: false }));
 api.use(bodyParser.json());
@@ -58,16 +58,38 @@ api.use(helmet());
 mongoose.connect(settings.db(), { config: { autoIndex: false } });
 mongoose.connection.on('error', console.log);
 
-//get repository modules
-var blogRepository = require('./repository/blogRepository');
-var oauthRepository = require('./repository/oauthRepository');
+//passport config
+api.use(passport.initialize());
+passportConfig(passport);
 
 //public routes
 api.get('/api/blogs', blogRepository.all);
 api.get('/api/blogs/:url', blogRepository.detail);
 api.post('/api/comment', blogRepository.addComment);
-api.get('/api/authenticate', oauthRepository.authenticate);
 api.get('/api/settings', oauthRepository.settings);
+
+//public oauth routes
+api.get('/api/login/google', passport.authenticate('google', { scope: 'email', failureRedirect : '/', successRedirect: '/api/login/google/verify' }));
+/*api.get('/api/login', function(req, res){
+    res.send('login called'); 
+});*/
+api.get('/api/login/github', passport.authenticate('github', { scope: 'email'}));
+
+api.get('/api/login/google/callback', function(req, res){
+   console.log('callback'); 
+});
+
+api.get('/api/login/github/callback', function(req, res){
+   console.log('callback'); 
+});
+
+api.get('/api/login/google/verify', function(req, res){
+   console.log('verify'); 
+});
+
+api.get('/api/login/github/verify', function(req, res){
+   console.log('verify'); 
+});
 
 //admin routes
 api.post('/api/blogs', blogRepository.save);

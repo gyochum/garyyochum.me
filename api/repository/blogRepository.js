@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-var settings = require('../settings');
+var settings = require('../config/settings');
 var model = require('../models/blog');
 var Comment = require('../models/comment');
 var ObjectId = require('mongoose').Types.ObjectId;

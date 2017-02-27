@@ -10,20 +10,18 @@ import * as Rx from "rxjs/Rx";
 export class AuthService extends BaseService{
     
     private isAuthenticated:boolean;
-    private _test:Subject<Boolean>= new Subject<Boolean>();
     
     constructor(private http:Http){
         super();
     }
     
-    login(provider:string):void{
-        this.http.get(this.baseApiUrl + '/api/login/' + provider).map((response:Response) => {
-            response.json();
-        })
-        .subscribe(
-            response => console.log(response),
-            error => console.log(error)
-        );
+    login(provider:string):Promise<string>{
+        return this.http.get(this.baseApiUrl + '/login/' + provider)
+            .toPromise()
+            .then((response) => {
+                console.log(response);
+              return 'finsihed';  
+            });
     }
     
     isLoggedin():boolean{

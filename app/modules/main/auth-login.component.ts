@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from './auth.service';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
 	selector: 'login',
-	template: '<div class="login" *ngIf="!isLoggedIn">' + 
-		'<div (click)="login(\'google\')" class="fa fa-google-plus"></div></div>' + 
-		'<div (click)="login(\'github\')" class="fa fa-github"></div>' +
+	template: '<div class="login">' +  
+		'<div (click)="login(\'google\')" class="fa fa-google-plus"></div>' + 
+		'<div (click)="login(\'github\')" class="fa fa-github"></div>' + 
 		'</div>'
 })
 
@@ -22,7 +22,7 @@ export class AuthLoginComponent implements OnInit{
 	}
 	
 	login(provider:string){
-		
+		this.service.login(provider);
 	}
 	
 }

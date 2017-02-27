@@ -1,4 +1,4 @@
-var settings = require('../settings');
+var settings = require('../config/settings');
 var request = require('request');
 var querystring = require('querystring');
 var jwt = require('jsonwebtoken');
@@ -18,9 +18,13 @@ exports.settings = function(request, response, next){
     });
 };
 
-exports.authenticate = function authenticate(accessToken, refreshToken, profile, callback) {
+exports.authenticateGoogle = function(request, token, refreshToken, profile, done){
     
-}
+};
+
+exports.authenticateGithub = function(request, token, refreshToken, profile, done){
+    
+};
 
 exports.authenticate_old = function(req, response, next){
     var code = req.query.code;
